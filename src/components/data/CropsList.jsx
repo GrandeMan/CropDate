@@ -115,7 +115,9 @@ const CropsList = () => {
 			<ul>
 				{tempData.map((crop, index) => (
 					<li key={index}>
-						<h2>{crop.category}</h2>
+						<h2 className="text-3xl font-bold underline">
+							{crop.category}
+						</h2>
 						<p>{crop.commodity}</p>
 						{crop.date}
 						{crop.price}
