@@ -1,22 +1,30 @@
-import axios from "axios";
+import getRates from "../data/Rates";
+import { localStorageData } from "../data/Rates";
 
 const convertCurrency = async (amount, fromCurrency, toCurrency) => {
 	try {
-		const response = await axios.get("/api/exchangerate");
+		const cachedRates = await getRates();
 
-		// Check if the response contains the expected data structure
-		if (!response.data || !response.data.conversion_rates) {
-			throw new Error("Invalid response format from exchange rate API");
+		// Check if cachedRates is not null
+		if (!cachedRates) {
+			throw new Error("Exchange rates not available");
 		}
 
-		const rates = response.data.conversion_rates;
-		const baseCurrency = 1 / rates[fromCurrency];
-		const exchangeRate = baseCurrency * rates[toCurrency];
+		const baseCurrency = 1 / cachedRates[fromCurrency];
+		const exchangeRate = baseCurrency * cachedRates[toCurrency];
 		const convertedAmount = (amount * exchangeRate).toFixed(2);
+
+		localStorageData("lastConversion", {
+			amount,
+			fromCurrency,
+			toCurrency,
+			convertedAmount,
+		});
 		return convertedAmount;
 	} catch (error) {
-		console.error("Conversion error", error);
+		console.error("Error converting currency:", error);
 		throw new Error("Failed to convert currency");
 	}
 };
+
 export default convertCurrency;

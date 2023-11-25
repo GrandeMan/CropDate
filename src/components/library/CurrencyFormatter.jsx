@@ -8,12 +8,16 @@ const CurrencyFormatter = ({ value }) => {
 
 	useEffect(() => {
 		const convertAmount = async () => {
-			const convertedAmount = await convertCurrency(
-				value,
-				"TTD",
-				selectedCurrency
-			);
-			setConvertedValue(convertedAmount);
+			try {
+				const convertedAmount = await convertCurrency(
+					value,
+					"TTD",
+					selectedCurrency
+				);
+				setConvertedValue(convertedAmount);
+			} catch (error) {
+				console.log("Error converting currency:", error);
+			}
 		};
 
 		convertAmount();
