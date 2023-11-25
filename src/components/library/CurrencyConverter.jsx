@@ -1,5 +1,5 @@
 import getRates from "../data/Rates";
-import { localStorageData } from "../data/Rates";
+import localStorageData from "../utils/LocalStorage";
 
 const convertCurrency = async (amount, fromCurrency, toCurrency) => {
 	try {

@@ -1,4 +1,5 @@
 import axios from "axios";
+import localStorageData from "../utils/LocalStorage";
 
 const getCurrentDate = () => {
 	const date = new Date();
@@ -6,16 +7,6 @@ const getCurrentDate = () => {
 	const month = String(date.getMonth() + 1).padStart(2, "0");
 	const day = String(date.getDate()).padStart(2, "0");
 	return `${year}-${month}-${day}`;
-};
-
-// Get or set data in local storage
-export const localStorageData = (key, value) => {
-	if (value === undefined) {
-		const storedValue = localStorage.getItem(key);
-		return storedValue ? JSON.parse(storedValue) : null;
-	} else {
-		localStorage.setItem(key, JSON.stringify(value));
-	}
 };
 
 const getRates = async () => {
