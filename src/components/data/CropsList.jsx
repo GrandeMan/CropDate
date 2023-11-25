@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import CurrencyFormatter from "../library/CurrencyFormatter";
 
 const CropsList = () => {
 	// const [cropsData, setCropsData] = useState([]);
@@ -120,7 +121,7 @@ const CropsList = () => {
 						</h2>
 						<p>{crop.commodity}</p>
 						{crop.date}
-						{crop.price}
+						<CurrencyFormatter value={crop.price} />
 						{crop.unit} {crop.volume}
 					</li>
 				))}

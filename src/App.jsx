@@ -1,4 +1,6 @@
 import CropsList from "./components/data/CropsList";
+import CurrencyProvider from "./components/library/CurrencyProvider";
+import CurrencySelector from "./components/library/CurrencySelector";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -249,7 +251,12 @@ export default function App() {
 				</header>
 				<main>
 					<div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-						<CropsList />
+						<CurrencyProvider>
+							<>
+								<CurrencySelector />
+								<CropsList />
+							</>
+						</CurrencyProvider>
 					</div>
 				</main>
 			</div>

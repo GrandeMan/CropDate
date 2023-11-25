@@ -1,64 +1,34 @@
-const currencies = {
-	USD: "en-US",
-	EUR: "de-DE",
-	GBP: "en-GB",
-	TTD: "en-TT",
-	JMD: "en-JM",
-	GYD: "en-GY",
-	BBD: "en-BB",
-	XCD: "en-GD",
-};
+import { useEffect, useState } from "react";
+import { useCurrency } from "./CurrencyProvider";
+import convertCurrency from "./CurrencyConverter";
 
-const CurrencyFormatter = ({ value, currency }) => {
-	const formatter = new Intl.NumberFormat(currencies[currency], {
-		style: "currency",
-		currency: currency,
-	});
+const CurrencyFormatter = ({ value }) => {
+	const { selectedCurrency } = useCurrency();
+	const [convertedValue, setConvertedValue] = useState(null);
 
-	return <span>{formatter.format(value)}</span>;
-};
+	useEffect(() => {
+		const convertAmount = async () => {
+			const convertedAmount = await convertCurrency(
+				value,
+				"TTD",
+				selectedCurrency
+			);
+			setConvertedValue(convertedAmount);
+		};
 
-const CurrencySelector = ({ onSelectCurrency }) => {
-	const [selectedCurrency, setSelectedCurrency] = useState("TTD");
-
-	const handleCurrencyChange = (e) => {
-		const newCurrency = e.target.value;
-		setSelectedCurrency(newCurrency);
-		onSelectCurrency(newCurrency);
-	};
+		convertAmount();
+	}, [value, selectedCurrency]);
 
 	return (
-		<select value={selectedCurrency} onChange={handleCurrencyChange}>
-			{Object.keys(currencies).map((currency) => (
-				<option key={currency} value={currency}>
-					{currency}
-				</option>
-			))}
-		</select>
+		<span>
+			{convertedValue !== null
+				? new Intl.NumberFormat(selectedCurrency, {
+						style: "currency",
+						currency: selectedCurrency,
+				  }).format(convertedValue)
+				: "Loading..."}
+		</span>
 	);
 };
 
-const App = () => {
-	const [selectedCurrency, setSelectedCurrency] = useState("TTD");
-
-	const handleCurrencyChange = (newCurrency) => {
-		setSelectedCurrency(newCurrency);
-	};
-
-	return (
-		<div>
-			<CurrencySelector onSelectCurrency={handleCurrencyChange} />
-			{data.map((item, index) => (
-				<div key={index}>
-					{item.commodity}:{" "}
-					<CurrencyFormatter
-						value={item.price}
-						currency={selectedCurrency}
-					/>
-				</div>
-			))}
-		</div>
-	);
-};
-
-export default App;
+export default CurrencyFormatter;
