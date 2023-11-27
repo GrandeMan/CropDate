@@ -1,12 +1,14 @@
 import Overview from "./components/pages/Overview";
-import CurrencyProvider from "./components/library/CurrencyProvider";
+// import CurrencyProvider from "./components/library/CurrencyProvider";
 import { Fragment, useEffect, useState } from "react";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import Crops from "./components/pages/Crops";
 import MyCrops from "./components/pages/MyCrops";
 import CropsIndex from "./components/library/CropsIndex";
+import CropDetails from "./components/pages/CropDetails";
+import CropsList from "./components/pages/CropsList";
+import { CropsProvider } from "./components/library/CropsContext";
 
 const user = {
 	name: "Joshua Morales",
@@ -46,11 +48,13 @@ export default function App() {
 							<div className="flex h-16 items-center justify-between">
 								<div className="flex items-center">
 									<div className="flex-shrink-0">
-										<img
-											className="h-8 w-8"
-											src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-											alt="Your Company"
-										/>
+										<Link to="/">
+											<img
+												className="h-8 w-8"
+												src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+												alt="Your Company"
+											/>
+										</Link>
 									</div>
 									<div className="hidden md:block">
 										<div className="ml-10 flex items-baseline space-x-4">
@@ -60,7 +64,10 @@ export default function App() {
 													to={item.href}
 													className={classNames(
 														currentPath ===
-															item.href
+															item.href ||
+															currentPath.startsWith(
+																`${item.href}/`
+															)
 															? "bg-gray-900 text-white"
 															: "text-gray-300 hover:bg-gray-700 hover:text-white",
 														"rounded-md px-3 py-2 text-sm font-medium"
@@ -184,7 +191,10 @@ export default function App() {
 										as={Link}
 										to={item.href}
 										className={classNames(
-											currentPath === item.href
+											currentPath === item.href ||
+												currentPath.startsWith(
+													`${item.href}/`
+												)
 												? "bg-gray-900 text-white"
 												: "text-gray-300 hover:bg-gray-700 hover:text-white",
 											"block rounded-md px-3 py-2 text-base font-medium"
@@ -246,7 +256,8 @@ export default function App() {
 				)}
 			</Disclosure>
 			<div>
-				<CurrencyProvider>
+				{/* <CurrencyProvider> */}
+				<CropsProvider>
 					<Routes>
 						<Route
 							path="/"
@@ -257,12 +268,14 @@ export default function App() {
 							}
 						/>
 						<Route path="/crops" element={<CropsIndex />}>
-							<Route index element={<Crops />} />
+							<Route index element={<CropsList />} />
 							<Route path="my-crops" element={<MyCrops />} />
+							<Route path=":id" element={<CropDetails />} />
 						</Route>
 						<Route path="*" element={<h1>404</h1>} />
 					</Routes>
-				</CurrencyProvider>
+				</CropsProvider>
+				{/* </CurrencyProvider> */}
 			</div>
 		</div>
 	);

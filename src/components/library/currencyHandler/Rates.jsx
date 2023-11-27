@@ -1,5 +1,5 @@
 import axios from "axios";
-import localStorageData from "../utils/LocalStorage";
+import localStorageData from "../../utils/LocalStorage";
 
 const getCurrentDate = () => {
 	const date = new Date();

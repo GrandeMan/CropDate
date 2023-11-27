@@ -1,6 +1,6 @@
-import { Link, BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { StarIcon, TableCellsIcon } from "@heroicons/react/20/solid";
-import CurrencySelector from "../library/CurrencySelector";
+import Card from "../library/Card";
+// import CurrencySelector from "../library/CurrencySelector";
 
 const today = new Date();
 const time = today.getHours();
@@ -22,46 +22,20 @@ const items = [
 	},
 ];
 
-const Card = ({ item }) => {
-	const Icon = item.icon;
-
-	return (
-		<Link to={item.href}>
-			<div className="bg-white overflow-hidden shadow rounded-lg p-4">
-				<div className="flex items-center">
-					<div className="flex-shrink-0">
-						<Icon
-							className="h-6 w-6 fill-green-500"
-							aria-hidden="true"
-						/>
-					</div>
-					<div className="ml-4 flex flex-col">
-						<div className="text-lg font-medium text-gray-900">
-							{item.name}
-						</div>
-						<div className="text-sm text-gray-500 truncate">
-							{item.description}
-						</div>
-					</div>
-				</div>
-			</div>
-		</Link>
-	);
-};
-
+// eslint-disable-next-line react/prop-types
 const Overview = ({ currentUser }) => {
 	return (
 		<>
 			<header className="bg-white shadow">
 				<div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex">
-					<h1 className="text-3xl font-bold tracking-tight text-gray-900">
+					<h1 className="text-3xl font-bold tracking-tight text-gray-900 ">
 						Overview
 					</h1>
 				</div>
 			</header>
 			<main>
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex-col gap-4">
-					<h2 className="text-2xl font-bold tracking-tight text-gray-900">
+					<h2 className="text-2xl font-medium tracking-tight text-gray-900 py-4">
 						{greeting}
 						{currentUser != "Guest" ? `, ${currentUser}` : ""} !
 					</h2>

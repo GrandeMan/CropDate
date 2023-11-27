@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 import axios from "axios";
-import CurrencyFormatter from "../library/CurrencyFormatter";
 import localStorageData from "../utils/LocalStorage";
 
-const CropsList = () => {
+const CropsContext = createContext();
+
+// eslint-disable-next-line react/prop-types
+const CropsProvider = ({ children }) => {
 	const [cropsData, setCropsData] = useState([]);
 	const [loading, setLoading] = useState(true);
 
@@ -24,7 +26,6 @@ const CropsList = () => {
 						"https://agrimarketwatch.herokuapp.com/crops/daily/recent"
 					);
 					setCropsData(response.data);
-					console.log(response.data);
 					localStorageData("cropsData", response.data);
 					setLoading(false);
 				}
@@ -32,27 +33,15 @@ const CropsList = () => {
 				console.error("Error fetching data:", error);
 			}
 		};
+
 		fetchData();
 	}, []);
 
-	if (loading) {
-		return <p>Loading...</p>;
-	}
-
 	return (
-		<div>
-			<h1>Crops List</h1>
-			<ul>
-				{cropsData.map((crop, index) => (
-					<li key={index}>
-						{crop.category} {crop.commodity} {crop.date}{" "}
-						<CurrencyFormatter value={crop.price} />
-						{crop.unit} {crop.volume}
-					</li>
-				))}
-			</ul>
-		</div>
+		<CropsContext.Provider value={{ cropsData, loading }}>
+			{children}
+		</CropsContext.Provider>
 	);
 };
 
-export default CropsList;
+export { CropsProvider, CropsContext };

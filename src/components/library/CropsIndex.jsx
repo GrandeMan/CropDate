@@ -33,7 +33,7 @@ function CropsIndex() {
 				</div>
 			</header>
 			<main>
-				<div className="mx-auto max-w-6xl py-6 sm:px-6 lg:px-8 bg-slate-500">
+				<div className="mx-auto max-w-6xl py-6 sm:px-6 lg:px-8">
 					<Outlet />
 				</div>
 			</main>

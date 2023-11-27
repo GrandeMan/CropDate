@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 const CurrencyContext = createContext();
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useCurrency() {
 	const context = useContext(CurrencyContext);
 	if (!context) {
