@@ -5,6 +5,8 @@ import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Crops from "./components/pages/Crops";
+import MyCrops from "./components/pages/MyCrops";
+import CropsIndex from "./components/library/CropsIndex";
 
 const user = {
 	name: "Joshua Morales",
@@ -243,14 +245,25 @@ export default function App() {
 					</>
 				)}
 			</Disclosure>
-			<>
+			<div>
 				<CurrencyProvider>
 					<Routes>
-						<Route path="/" element={<Overview />} />
-						<Route path="/crops" element={<Crops />} />
+						<Route
+							path="/"
+							element={
+								<Overview
+									currentUser={user.name.split(" ")[0]}
+								/>
+							}
+						/>
+						<Route path="/crops" element={<CropsIndex />}>
+							<Route index element={<Crops />} />
+							<Route path="my-crops" element={<MyCrops />} />
+						</Route>
+						<Route path="*" element={<h1>404</h1>} />
 					</Routes>
 				</CurrencyProvider>
-			</>
+			</div>
 		</div>
 	);
 }
