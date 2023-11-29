@@ -1,8 +1,9 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { StarIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import {
+  ArrowRightIcon,
   ChevronDownIcon,
   MagnifyingGlassIcon,
   MinusIcon,
@@ -13,6 +14,7 @@ import useCrops from "../library/useCrops";
 import { Link } from "react-router-dom";
 import Item, { titleCase } from "../library/Item";
 import Fuse from "fuse.js";
+import CurrencyFormatter from "../library/currencyHandler/CurrencyFormatter";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -123,13 +125,17 @@ const CropsList = function () {
                             Latest Price
                           </h3>
                           <p className="mt-1 text-sm text-gray-500">
-                            {selectedCrop.price !== 0
-                              ? `${selectedCrop.price} per ${
-                                  selectedCrop.unit === "100's"
-                                    ? "100's"
-                                    : selectedCrop.unit.toUpperCase()
-                                }`
-                              : "Price not available"}
+                            {selectedCrop.price !== 0 ? (
+                              <>
+                                <CurrencyFormatter value={selectedCrop.price} />{" "}
+                                per{" "}
+                                {selectedCrop.unit === "100's"
+                                  ? "100's"
+                                  : selectedCrop.unit.toUpperCase()}
+                              </>
+                            ) : (
+                              "Price not available"
+                            )}
                           </p>
                         </div>
                         <div className="mt-2 border-t border-gray-200 px-4 sm:px-6">
@@ -147,6 +153,28 @@ const CropsList = function () {
                           <p className="mt-1 text-sm text-gray-500">
                             {selectedCrop.date.split(" ").slice(0, 1).join("")}
                           </p>
+                        </div>
+                        <div className="grid gap-4 mt-4 px-4">
+                          <button
+                            type="button"
+                            className="flex items-center rounded-md bg-green-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                          >
+                            <PlusIcon
+                              className="-ml-0.5 mr-1.5 h-5 w-5 stroke-white"
+                              aria-hidden="true"
+                            />
+                            Add to my crops
+                          </button>
+                          <button
+                            type="button"
+                            className="flex items-center rounded-md bg-green-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                          >
+                            <ArrowRightIcon
+                              className="-ml-0.5 mr-1.5 h-5 w-5 stroke-white"
+                              aria-hidden="true"
+                            />
+                            View full details
+                          </button>
                         </div>
                       </>
                     ) : (
@@ -227,7 +255,7 @@ const CropsList = function () {
               Crops
             </h2>
 
-            <div>
+            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {filteredCrops.map((crop, id) => (
                 <Link
                   key={id}
