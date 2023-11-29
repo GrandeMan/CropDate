@@ -12,7 +12,7 @@ const getCurrentDate = () => {
 const getRates = async () => {
   try {
     const cachedData = localStorageData("exchangeRates");
-    // console.log("cachedData", cachedData);
+    console.log("cachedData", cachedData);
 
     // Check if the cached rates are still valid
     if (cachedData && cachedData.date === getCurrentDate()) {

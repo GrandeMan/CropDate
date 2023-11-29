@@ -15,10 +15,10 @@ app.use(cors());
 app.get("/api/exchangerate", async (req, res) => {
   try {
     //Make a request to the Exchange Rate API
-    const response = await axios
-      .get
-      // `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/TTD`
-      ();
+    const response = await axios.get(
+      `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/TTD`,
+    );
+
     //Send the response data back to the client
     res.json(response.data);
   } catch (error) {

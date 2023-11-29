@@ -1,3 +1,5 @@
+import CurrencyFormatter from "./currencyHandler/CurrencyFormatter";
+
 export function titleCase(str) {
   let splitStr = str.toLowerCase().split(" ");
   return splitStr
@@ -16,11 +18,14 @@ const Item = ({ data }) => {
             {titleCase(data.commodity)}
           </div>
           <div className="text-sm text-gray-500">
-            {data.price !== 0
-              ? `${data.price} per ${
-                  data.unit === "100's" ? "100's" : data.unit.toUpperCase()
-                }`
-              : "Price not available"}
+            {data.price !== 0 ? (
+              <>
+                <CurrencyFormatter value={data.price} /> per{" "}
+                {data.unit === "100's" ? "100's" : data.unit.toUpperCase()}
+              </>
+            ) : (
+              "Price not available"
+            )}
           </div>
         </div>
       </div>

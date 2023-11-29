@@ -1,27 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useCurrency } from "./CurrencyProvider";
-import convertCurrency from "./CurrencyConverter";
+import { useExchangeRates } from "./ExchangeRatesContext";
 
 const CurrencyFormatter = ({ value }) => {
   const { selectedCurrency } = useCurrency();
+  const { exchangeRates } = useExchangeRates();
   const [convertedValue, setConvertedValue] = useState(null);
 
-  useEffect(() => {
-    const convertAmount = async () => {
+  const convertAmount = useMemo(() => {
+    return async () => {
       try {
-        const convertedAmount = await convertCurrency(
-          value,
-          "TTD",
-          selectedCurrency,
-        );
+        if (!value || !exchangeRates) {
+          throw new Error("Invalid value or exchange rates not available");
+        }
+
+        const baseCurrency = 1 / exchangeRates["TTD"];
+        const exchangeRate = baseCurrency * exchangeRates[selectedCurrency];
+        const convertedAmount = (value * exchangeRate).toFixed(2);
+
         setConvertedValue(convertedAmount);
       } catch (error) {
         console.log("Error converting currency:", error);
+        // Handle error or set a default conversion
       }
     };
+  }, [value, selectedCurrency, exchangeRates]);
 
+  useEffect(() => {
     convertAmount();
-  }, [value, selectedCurrency]);
+  }, [convertAmount]);
 
   return (
     <span>
