@@ -4,28 +4,28 @@ const CurrencyContext = createContext();
 
 // eslint-disable-next-line react-refresh/only-export-components
 export function useCurrency() {
-	const context = useContext(CurrencyContext);
-	if (!context) {
-		throw new Error("useCurrency must be used within a CurrencyProvider");
-	}
-	return context;
+  const context = useContext(CurrencyContext);
+  if (!context) {
+    throw new Error("useCurrency must be used within a CurrencyProvider");
+  }
+  return context;
 }
 
 // eslint-disable-next-line react/prop-types
 const CurrencyProvider = ({ children }) => {
-	const [selectedCurrency, setSelectedCurrency] = useState("TTD");
+  const [selectedCurrency, setSelectedCurrency] = useState("TTD");
 
-	const handleCurrencyChange = (newCurrency) => {
-		setSelectedCurrency(newCurrency);
-	};
+  const handleCurrencyChange = (newCurrency) => {
+    setSelectedCurrency(newCurrency);
+  };
 
-	return (
-		<CurrencyContext.Provider
-			value={{ selectedCurrency, handleCurrencyChange }}
-		>
-			{children}
-		</CurrencyContext.Provider>
-	);
+  return (
+    <CurrencyContext.Provider
+      value={{ selectedCurrency, handleCurrencyChange }}
+    >
+      {children}
+    </CurrencyContext.Provider>
+  );
 };
 
 export default CurrencyProvider;

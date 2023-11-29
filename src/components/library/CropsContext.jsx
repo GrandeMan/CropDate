@@ -6,42 +6,42 @@ const CropsContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 const CropsProvider = ({ children }) => {
-	const [cropsData, setCropsData] = useState([]);
-	const [loading, setLoading] = useState(true);
+  const [cropsData, setCropsData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const cachedCropData = localStorageData("cropsData");
-				const currentDate = new Date().toLocaleDateString();
-				const cachedDate = cachedCropData
-					? new Date(cachedCropData.date).toLocaleDateString()
-					: null;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const cachedCropData = localStorageData("cropsData");
+        const currentDate = new Date().toLocaleDateString();
+        const cachedDate = cachedCropData
+          ? new Date(cachedCropData.date).toLocaleDateString()
+          : null;
 
-				if (cachedCropData && currentDate === cachedDate) {
-					setCropsData(cachedCropData.data);
-					setLoading(false);
-				} else {
-					const response = await axios.get(
-						"https://agrimarketwatch.herokuapp.com/crops/daily/recent"
-					);
-					setCropsData(response.data);
-					localStorageData("cropsData", response.data);
-					setLoading(false);
-				}
-			} catch (error) {
-				console.error("Error fetching data:", error);
-			}
-		};
+        if (cachedCropData && currentDate === cachedDate) {
+          setCropsData(cachedCropData.data);
+          setLoading(false);
+        } else {
+          const response = await axios.get(
+            "https://agrimarketwatch.herokuapp.com/crops/daily/recent",
+          );
+          setCropsData(response.data);
+          localStorageData("cropsData", response.data);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-		fetchData();
-	}, []);
+    fetchData();
+  }, []);
 
-	return (
-		<CropsContext.Provider value={{ cropsData, loading }}>
-			{children}
-		</CropsContext.Provider>
-	);
+  return (
+    <CropsContext.Provider value={{ cropsData, loading }}>
+      {children}
+    </CropsContext.Provider>
+  );
 };
 
 export { CropsProvider, CropsContext };
