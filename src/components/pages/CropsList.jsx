@@ -1,17 +1,16 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { Fragment, useState } from "react";
-import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
-import { StarIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Dialog, Menu, Transition } from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   ArrowRightIcon,
   ChevronDownIcon,
-  MagnifyingGlassIcon,
   MinusIcon,
   PlusIcon,
 } from "@heroicons/react/20/solid";
 import CurrencySelector from "../library/currencyHandler/CurrencySelector";
 import useCrops from "../library/useCrops";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Item, { titleCase } from "../library/Item";
 import Fuse from "fuse.js";
 import CurrencyFormatter from "../library/currencyHandler/CurrencyFormatter";
@@ -26,11 +25,17 @@ const CropsList = function () {
   const [selectedCrop, setSelectedCrop] = useState(null);
   const [selectedTab, setSelectedTab] = useState("All Crops");
   const [searchTerm, setSearchTerm] = useState("");
-  const [isSeachOpen, setIsSearchOpen] = useState(false);
+  const navigate = useNavigate();
 
-  const allCropsSorted = [...cropsData].sort((a, b) =>
-    a.commodity.localeCompare(b.commodity),
-  );
+  const handleDetailsClick = () => {
+    navigate(`/crops/${selectedCrop.id}`);
+  };
+
+  const indices = [...Array(cropsData.length).keys()];
+
+  const allCropsSorted = [...cropsData]
+    .map((crop, index) => ({ ...crop, id: indices[index] }))
+    .sort((a, b) => a.commodity.localeCompare(b.commodity));
 
   const sortOptions = [
     "All Crops",
@@ -154,10 +159,10 @@ const CropsList = function () {
                             {selectedCrop.date.split(" ").slice(0, 1).join("")}
                           </p>
                         </div>
-                        <div className="grid gap-4 mt-4 px-4">
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 px-4">
                           <button
                             type="button"
-                            className="flex items-center rounded-md bg-green-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="flex items-center rounded-md bg-green-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
                           >
                             <PlusIcon
                               className="-ml-0.5 mr-1.5 h-5 w-5 stroke-white"
@@ -166,8 +171,9 @@ const CropsList = function () {
                             Add to my crops
                           </button>
                           <button
+                            onClick={handleDetailsClick}
                             type="button"
-                            className="flex items-center rounded-md bg-green-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="flex items-center rounded-md bg-green-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                           >
                             <ArrowRightIcon
                               className="-ml-0.5 mr-1.5 h-5 w-5 stroke-white"
@@ -255,7 +261,7 @@ const CropsList = function () {
               Crops
             </h2>
 
-            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-rows-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {filteredCrops.map((crop, id) => (
                 <Link
                   key={id}
