@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import useCrops from "../library/useCrops";
+import useCrops from "../library/cropsHandler/useCrops";
 
 const CropDetails = () => {
   const { id } = useParams();

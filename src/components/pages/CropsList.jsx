@@ -9,7 +9,7 @@ import {
   PlusIcon,
 } from "@heroicons/react/20/solid";
 import CurrencySelector from "../library/currencyHandler/CurrencySelector";
-import useCrops from "../library/useCrops";
+import useCrops from "../library/cropsHandler/useCrops";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Item, { titleCase } from "../library/Item";
 import Fuse from "fuse.js";

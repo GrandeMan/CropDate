@@ -5,10 +5,10 @@ import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import MyCrops from "./components/pages/MyCrops";
-import CropsIndex from "./components/library/CropsIndex";
+import CropsIndex from "./components/library/cropsHandler/CropsIndex";
 import CropDetails from "./components/pages/CropDetails";
 import CropsList from "./components/pages/CropsList";
-import { CropsProvider } from "./components/library/CropsContext";
+import { CropsProvider } from "./components/library/cropsHandler/CropsContext";
 import { ExchangeRatesProvider } from "./components/library/currencyHandler/ExchangeRatesContext";
 
 const user = {

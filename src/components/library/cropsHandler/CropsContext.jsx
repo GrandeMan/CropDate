@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
-import localStorageData from "../utils/LocalStorage";
+import localStorageData from "../../utils/LocalStorage";
 
 const CropsContext = createContext();
 
