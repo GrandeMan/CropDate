@@ -10,6 +10,7 @@ import CropDetails from "./components/pages/CropDetails";
 import CropsList from "./components/pages/CropsList";
 import { CropsProvider } from "./components/library/cropsHandler/CropsContext";
 import { ExchangeRatesProvider } from "./components/library/currencyHandler/ExchangeRatesContext";
+import { FavoritesProvider } from "./components/library/cropsHandler/FavouritesContext";
 
 const user = {
   name: "Joshua Morales",
@@ -214,18 +215,20 @@ export default function App() {
         <ExchangeRatesProvider>
           <CurrencyProvider>
             <CropsProvider>
-              <Routes>
-                <Route
-                  path="/"
-                  element={<Overview currentUser={user.name.split(" ")[0]} />}
-                />
-                <Route path="/crops" element={<CropsIndex />}>
-                  <Route index element={<CropsList />} />
-                  <Route path="my-crops" element={<MyCrops />} />
-                  <Route path=":id" element={<CropDetails />} />
-                </Route>
-                <Route path="*" element={<h1>404</h1>} />
-              </Routes>
+              <FavoritesProvider>
+                <Routes>
+                  <Route
+                    path="/"
+                    element={<Overview currentUser={user.name.split(" ")[0]} />}
+                  />
+                  <Route path="/crops" element={<CropsIndex />}>
+                    <Route index element={<CropsList />} />
+                    <Route path="my-crops" element={<MyCrops />} />
+                    <Route path=":id" element={<CropDetails />} />
+                  </Route>
+                  <Route path="*" element={<h1>404</h1>} />
+                </Routes>
+              </FavoritesProvider>
             </CropsProvider>
           </CurrencyProvider>
         </ExchangeRatesProvider>

@@ -32,10 +32,8 @@ function CropsIndex() {
           </nav>
         </div>
       </header>
-      <main>
-        <div className="mx-auto max-w-6xl py-6 sm:px-6 lg:px-8">
-          <Outlet />
-        </div>
+      <main className="w-full h-full">
+        <Outlet />
       </main>
     </>
   );

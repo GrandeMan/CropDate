@@ -14,6 +14,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import Item, { titleCase } from "../library/Item";
 import Fuse from "fuse.js";
 import CurrencyFormatter from "../library/currencyHandler/CurrencyFormatter";
+import { useFavorites } from "../library/cropsHandler/FavouritesContext";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -26,6 +27,8 @@ const CropsList = function () {
   const [selectedTab, setSelectedTab] = useState("All Crops");
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+  const { addToFavorites, removeFromFavorites, isCropFavorited } =
+    useFavorites();
 
   const handleDetailsClick = () => {
     navigate(`/crops/${selectedCrop.id}`);
@@ -162,13 +165,27 @@ const CropsList = function () {
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 px-4">
                           <button
                             type="button"
+                            onClick={() => {
+                              isCropFavorited(selectedCrop.id)
+                                ? removeFromFavorites(selectedCrop.id)
+                                : addToFavorites(selectedCrop);
+                            }}
                             className="flex items-center rounded-md bg-green-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
                           >
-                            <PlusIcon
-                              className="-ml-0.5 mr-1.5 h-5 w-5 stroke-white"
-                              aria-hidden="true"
-                            />
-                            Add to my crops
+                            {isCropFavorited(selectedCrop.id) ? (
+                              <MinusIcon
+                                className="-ml-0.5 mr-1.5 h-5 w-5 stroke-white"
+                                aria-hidden="true"
+                              />
+                            ) : (
+                              <PlusIcon
+                                className="-ml-0.5 mr-1.5 h-5 w-5 stroke-white"
+                                aria-hidden="true"
+                              />
+                            )}
+                            {isCropFavorited(selectedCrop.id)
+                              ? "Remove from my list"
+                              : "Add to my list"}
                           </button>
                           <button
                             onClick={handleDetailsClick}
