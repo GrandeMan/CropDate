@@ -102,7 +102,7 @@ const CropsList = function () {
                 leaveFrom="translate-x-0"
                 leaveTo="translate-x-full"
               >
-                <Dialog.Panel className="relative ml-auto flex h-full w-4/5 flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
+                <Dialog.Panel className="relative sm:pt-16 ml-auto flex h-full w-4/5 flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
                   <div className="flex items-center justify-between px-4">
                     <h2 className="text-lg font-medium text-gray-900">
                       {selectedCrop ? titleCase(selectedCrop.commodity) : ""}
@@ -184,8 +184,8 @@ const CropsList = function () {
                               />
                             )}
                             {isCropFavorited(selectedCrop.id)
-                              ? "Remove from my list"
-                              : "Add to my list"}
+                              ? "Remove from your list"
+                              : "Add to your list"}
                           </button>
                           <button
                             onClick={handleDetailsClick}
@@ -218,7 +218,7 @@ const CropsList = function () {
             <input
               type="text"
               id="search"
-              className="block w-full border rounded-xl bg-white"
+              className="block w-full border rounded-xl bg-white focus:ring-green-500 focus:border-gray-500 sm:text-sm border-gray-400"
               placeholder="Search"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}

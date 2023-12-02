@@ -26,7 +26,7 @@ const CropsProvider = ({ children }) => {
             "https://agrimarketwatch.herokuapp.com/latest",
           );
           setCropsData(response.data.crops);
-          console.log("cropsData", response.data.crops);
+          // console.log("cropsData", response.data.crops);
           localStorageData("cropsData", response.data);
           setLoading(false);
         }

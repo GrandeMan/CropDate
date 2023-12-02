@@ -9,6 +9,10 @@ export default {
         sans: ["Inter var", ...defaultTheme.fontFamily.sans],
       },
     },
+    screens: {
+      xs: "320px",
+      ...defaultTheme.screens,
+    },
   },
   plugins: [require("@tailwindcss/forms")],
 };

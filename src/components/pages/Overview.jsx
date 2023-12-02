@@ -37,7 +37,7 @@ const Overview = ({ currentUser }) => {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex-col gap-4">
           <h2 className="text-2xl font-medium tracking-tight text-gray-900 py-4">
             {greeting}
-            {currentUser != "Guest" ? `, ${currentUser}` : ""} !
+            {currentUser != "Guest" ? `, ${currentUser}` : ""}!
           </h2>
           <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {items.map((item) => (

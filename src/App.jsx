@@ -13,7 +13,7 @@ import { ExchangeRatesProvider } from "./components/library/currencyHandler/Exch
 import { FavoritesProvider } from "./components/library/cropsHandler/FavouritesContext";
 
 const user = {
-  name: "Joshua Morales",
+  name: "Guest User",
   email: "https://github.com/GrandeMan",
   imageUrl:
     "https://images.unsplash.com/photo-1571680322279-a226e6a4cc2a?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -56,13 +56,15 @@ export default function App() {
     <div className="min-h-full">
       <Disclosure
         as="nav"
-        className={`bg-green-600 ${
-          isScrolled ? "fixed w-full" : ""
-        } lg:sticky top-0 z-50`}
+        className={classNames(
+          "mx-0 px-4 sm:px-6 lg:px-8 fixed sm:bottom-auto xs:bottom-0",
+          "bg-green-600 w-screen z-50 transition-all duration-300",
+          isScrolled ? "bg-opacity-90" : "bg-opacity-100",
+        )}
       >
         {({ open }) => (
           <>
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="">
               <div className="flex h-16 items-center justify-between">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
@@ -98,14 +100,14 @@ export default function App() {
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-4 flex items-center md:ml-6">
-                    {/* <button
+                    <button
                       type="button"
                       className="relative rounded-full bg-green-800 p-1 text-green-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-green-800"
                     >
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">View notifications</span>
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
-                    </button> */}
+                    </button>
 
                     {/* Profile dropdown */}
                     <Menu as="div" className="relative ml-3">
@@ -151,7 +153,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="-mr-2 flex md:hidden">
+                <div className="-mr-2 flex md:hidden ">
                   {/* Mobile menu button */}
 
                   <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md  p-1 text-green-200 hover:bg-green-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 focus:ring-offset-green-700">
@@ -172,13 +174,15 @@ export default function App() {
             <Transition
               as={Fragment}
               enter="transition ease-in-out duration-300 transform"
-              enterFrom="opacity-0 translate-y-[-10px]"
+              enterFrom="opacity-0 xs:translate-y-10 sm:translate-y-[-10px]
+              "
               enterTo="opacity-100 translate-y-0"
               leave="transition ease-in-out duration-200 transform"
               leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 translate-y-[-10px]"
+              leaveTo="opacity-0
+                xs:translate-y-10 sm:translate-y-[-10px]"
             >
-              <Disclosure.Panel className="md:hidden">
+              <Disclosure.Panel className="md:hidden ">
                 <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                   {navigation.map((item) => (
                     <Disclosure.Button
@@ -215,14 +219,14 @@ export default function App() {
                         {user.email}
                       </div>
                     </div>
-                    {/* <button
-                    type="button"
-                    className="relative ml-auto flex-shrink-0 rounded-full bg-green-800 p-1 text-green-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-green-800"
-                  >
-                    <span className="absolute -inset-1.5" />
-                    <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button> */}
+                    <button
+                      type="button"
+                      className="relative ml-auto flex-shrink-0 rounded-full bg-green-800 p-1 text-green-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-green-800"
+                    >
+                      <span className="absolute -inset-1.5" />
+                      <span className="sr-only">View notifications</span>
+                      <BellIcon className="h-6 w-6" aria-hidden="true" />
+                    </button>
                   </div>
                   <div className="mt-3 space-y-1 px-2">
                     {userNavigation.map((item) => (

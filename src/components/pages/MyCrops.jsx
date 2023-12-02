@@ -33,7 +33,7 @@ const MyCrops = () => {
         <main className="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
           <p>Your favorite crops:</p>
           <ul>
-            {console.log("favoriteCrops", favoriteCrops)}
+            {/* {console.log("favoriteCrops", favoriteCrops)} */}
             {favoriteCrops.map((crop, index) => (
               <li key={index}>{crop.commodity}</li>
             ))}
