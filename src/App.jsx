@@ -21,7 +21,6 @@ const user = {
 const navigation = [
   { name: "Overview", href: "/", current: true },
   { name: "Crops", href: "/crops", current: false },
-  { name: "Projects", href: "#", current: false },
 ];
 const userNavigation = [
   { name: "Your Profile", href: "#" },
@@ -36,6 +35,18 @@ function classNames(...classes) {
 export default function App() {
   const [currentPath, setCurrentPath] = useState("/");
   const location = useLocation();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY > 150;
+      setIsScrolled(scrolled);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     setCurrentPath(location.pathname);
@@ -43,7 +54,12 @@ export default function App() {
 
   return (
     <div className="min-h-full">
-      <Disclosure as="nav" className="bg-gray-800">
+      <Disclosure
+        as="nav"
+        className={`bg-green-600 ${
+          isScrolled ? "fixed w-full" : ""
+        } lg:sticky top-0 z-50`}
+      >
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -52,9 +68,10 @@ export default function App() {
                   <div className="flex-shrink-0">
                     <Link to="/">
                       <img
-                        className="h-8 w-8"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                        alt="Your Company"
+                        className="h-8 w-8 sm:h-10 sm:w-10"
+                        style={{ filter: "brightness(0) invert(1)" }}
+                        src="https://png2.cleanpng.com/sh/b1cdf09496b80cef4330b73030d829cb/L0KzQYm3VcMyN6V4fZH0aYP2gLBuTfNwdaF6jNd7LXnmf7B6TgZmb5Z5eeRyYX6wc8bwkBlvbV50itlqbnnmPbf2jBQua5DoRd5uYXawhrbqlP9zNWZnSaI6YnS4QYi3VsY0NmQ7UKY6M0W1QYa5V8c5OmQ6T6IENEOxgLBu/kisspng-computer-icons-vegetarian-cuisine-organic-food-coc-leaf-vector-5b101bd5170663.3684135215277823570943.png"
+                        alt="CropDate"
                       />
                     </Link>
                   </div>
@@ -67,8 +84,8 @@ export default function App() {
                           className={classNames(
                             currentPath === item.href ||
                               currentPath.startsWith(`${item.href}/`)
-                              ? "bg-gray-900 text-white"
-                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                              ? "bg-green-900 text-white"
+                              : "text-green-200 hover:bg-green-700 hover:text-white",
                             "rounded-md px-3 py-2 text-sm font-medium",
                           )}
                           aria-current={item.current ? "page" : undefined}
@@ -81,19 +98,19 @@ export default function App() {
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-4 flex items-center md:ml-6">
-                    <button
+                    {/* <button
                       type="button"
-                      className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                      className="relative rounded-full bg-green-800 p-1 text-green-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-green-800"
                     >
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">View notifications</span>
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
-                    </button>
+                    </button> */}
 
                     {/* Profile dropdown */}
                     <Menu as="div" className="relative ml-3">
                       <div>
-                        <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-green-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-green-800">
                           <span className="absolute -inset-1.5" />
                           <span className="sr-only">Open user menu</span>
                           <img
@@ -119,7 +136,7 @@ export default function App() {
                                 <a
                                   href={item.href}
                                   className={classNames(
-                                    active ? "bg-gray-100" : "",
+                                    active ? "bg-gray-200" : "",
                                     "block px-4 py-2 text-sm text-gray-700",
                                   )}
                                 >
@@ -133,81 +150,95 @@ export default function App() {
                     </Menu>
                   </div>
                 </div>
+
                 <div className="-mr-2 flex md:hidden">
                   {/* Mobile menu button */}
-                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+
+                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md  p-1 text-green-200 hover:bg-green-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 focus:ring-offset-green-700">
                     <span className="absolute -inset-0.5" />
                     <span className="sr-only">Open main menu</span>
                     {open ? (
-                      <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                      <XMarkIcon className="block h-8 w-8" aria-hidden="true" />
                     ) : (
-                      <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                      <Bars3Icon
+                        className="block h-8 w-8 "
+                        aria-hidden="true"
+                      />
                     )}
                   </Disclosure.Button>
                 </div>
               </div>
             </div>
-
-            <Disclosure.Panel className="md:hidden">
-              <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                {navigation.map((item) => (
-                  <Disclosure.Button
-                    key={item.name}
-                    as={Link}
-                    to={item.href}
-                    className={classNames(
-                      currentPath === item.href ||
-                        currentPath.startsWith(`${item.href}/`)
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "block rounded-md px-3 py-2 text-base font-medium",
-                    )}
-                    aria-current={item.current ? "page" : undefined}
-                  >
-                    {item.name}
-                  </Disclosure.Button>
-                ))}
-              </div>
-              <div className="border-t border-gray-700 pb-3 pt-4">
-                <div className="flex items-center px-5">
-                  <div className="flex-shrink-0">
-                    <img
-                      className="h-10 w-10 rounded-full"
-                      src={user.imageUrl}
-                      alt=""
-                    />
-                  </div>
-                  <div className="ml-3">
-                    <div className="text-base font-medium leading-none text-white">
-                      {user.name}
-                    </div>
-                    <div className="text-sm font-medium leading-none text-gray-400">
-                      {user.email}
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                  >
-                    <span className="absolute -inset-1.5" />
-                    <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
-                </div>
-                <div className="mt-3 space-y-1 px-2">
-                  {userNavigation.map((item) => (
+            <Transition
+              as={Fragment}
+              enter="transition ease-in-out duration-300 transform"
+              enterFrom="opacity-0 translate-y-[-10px]"
+              enterTo="opacity-100 translate-y-0"
+              leave="transition ease-in-out duration-200 transform"
+              leaveFrom="opacity-100 translate-y-0"
+              leaveTo="opacity-0 translate-y-[-10px]"
+            >
+              <Disclosure.Panel className="md:hidden">
+                <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+                  {navigation.map((item) => (
                     <Disclosure.Button
                       key={item.name}
-                      as="a"
-                      href={item.href}
-                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                      as={Link}
+                      to={item.href}
+                      className={classNames(
+                        currentPath === item.href ||
+                          currentPath.startsWith(`${item.href}/`)
+                          ? "bg-green-900 text-white"
+                          : "text-green-200 hover:bg-green-700 hover:text-white",
+                        "block rounded-md px-3 py-2 text-base font-medium",
+                      )}
+                      aria-current={item.current ? "page" : undefined}
                     >
                       {item.name}
                     </Disclosure.Button>
                   ))}
                 </div>
-              </div>
-            </Disclosure.Panel>
+                <div className="border-t border-green-700 pb-3 pt-4">
+                  <div className="flex items-center px-5">
+                    <div className="flex-shrink-0">
+                      <img
+                        className="h-10 w-10 rounded-full"
+                        src={user.imageUrl}
+                        alt=""
+                      />
+                    </div>
+                    <div className="ml-3">
+                      <div className="text-base font-medium leading-none text-white">
+                        {user.name}
+                      </div>
+                      <div className="text-sm font-medium leading-none text-green-300">
+                        {user.email}
+                      </div>
+                    </div>
+                    {/* <button
+                    type="button"
+                    className="relative ml-auto flex-shrink-0 rounded-full bg-green-800 p-1 text-green-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-green-800"
+                  >
+                    <span className="absolute -inset-1.5" />
+                    <span className="sr-only">View notifications</span>
+                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  </button> */}
+                  </div>
+                  <div className="mt-3 space-y-1 px-2">
+                    {userNavigation.map((item) => (
+                      <Disclosure.Button
+                        key={item.name}
+                        as="a"
+                        href={item.href}
+                        className="block rounded-md px-3 py-2 text-base font-medium text-green-300 hover:bg-green-700 hover:text-white"
+                      >
+                        {item.name}
+                      </Disclosure.Button>
+                    ))}
+                  </div>
+                </div>
+              </Disclosure.Panel>
+            </Transition>
           </>
         )}
       </Disclosure>

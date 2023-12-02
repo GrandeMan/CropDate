@@ -9,7 +9,7 @@ const greeting =
 
 const items = [
   {
-    name: "My Crops",
+    name: "Your Crops",
     description: "View your tracked crops.",
     href: "/crops/my-crops",
     icon: StarIcon,
@@ -26,9 +26,9 @@ const items = [
 const Overview = ({ currentUser }) => {
   return (
     <>
-      <header className="bg-white shadow">
+      <header className="bg-gradient-to-b from-green-600 ">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900 ">
+          <h1 className="text-3xl font-bold tracking-tight text-green-900 ">
             Overview
           </h1>
         </div>

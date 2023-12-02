@@ -210,7 +210,7 @@ const CropsList = function () {
           </Dialog>
         </Transition.Root>
 
-        <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <main className="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between border-b border-gray-200 py-5">
             <label htmlFor="search" className="sr-only">
               Search
