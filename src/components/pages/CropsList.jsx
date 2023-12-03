@@ -1,12 +1,16 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { Fragment, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  XMarkIcon,
+  StarIcon as StarOutline,
+} from "@heroicons/react/24/outline";
 import {
   ArrowRightIcon,
   ChevronDownIcon,
   MinusIcon,
   PlusIcon,
+  StarIcon as StarSolid,
 } from "@heroicons/react/20/solid";
 import CurrencySelector from "../library/currencyHandler/CurrencySelector";
 import useCrops from "../library/cropsHandler/useCrops";
@@ -15,6 +19,7 @@ import Item, { titleCase } from "../library/Item";
 import Fuse from "fuse.js";
 import CurrencyFormatter from "../library/currencyHandler/CurrencyFormatter";
 import { useFavorites } from "../library/cropsHandler/FavouritesContext";
+import Modal from "../library/Modal";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -29,6 +34,20 @@ const CropsList = function () {
   const navigate = useNavigate();
   const { addToFavorites, removeFromFavorites, isCropFavorited } =
     useFavorites();
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const toggleFavorite = () => {
+    setModalOpen(true);
+    if (isCropFavorited(selectedCrop.id)) {
+      removeFromFavorites(selectedCrop.id);
+    } else {
+      addToFavorites(selectedCrop);
+    }
+
+    setTimeout(() => {
+      setModalOpen(false);
+    }, 1000);
+  };
 
   const handleDetailsClick = () => {
     navigate(`/crops/${selectedCrop.id}`);
@@ -165,11 +184,7 @@ const CropsList = function () {
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 px-4">
                           <button
                             type="button"
-                            onClick={() => {
-                              isCropFavorited(selectedCrop.id)
-                                ? removeFromFavorites(selectedCrop.id)
-                                : addToFavorites(selectedCrop);
-                            }}
+                            onClick={toggleFavorite}
                             className="flex items-center rounded-md bg-green-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
                           >
                             {isCropFavorited(selectedCrop.id) ? (
@@ -187,6 +202,22 @@ const CropsList = function () {
                               ? "Remove from your list"
                               : "Add to your list"}
                           </button>
+                          {modalOpen && (
+                            <Modal
+                              icon={
+                                isCropFavorited(selectedCrop.id) ? (
+                                  <StarSolid className="h-10 w-10 text-green-500" />
+                                ) : (
+                                  <StarOutline className="h-10 w-10 text-green-500" />
+                                )
+                              }
+                              text={
+                                isCropFavorited(selectedCrop.id)
+                                  ? "Added to your list"
+                                  : "Removed from your list"
+                              }
+                            />
+                          )}
                           <button
                             onClick={handleDetailsClick}
                             type="button"

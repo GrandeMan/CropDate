@@ -57,14 +57,14 @@ export default function App() {
       <Disclosure
         as="nav"
         className={classNames(
-          "mx-0 px-4 sm:px-6 lg:px-8 fixed sm:bottom-auto xs:bottom-0",
-          "bg-green-600 w-screen z-50 transition-all duration-300",
+          "mx-0 px-4 z-50 sm:px-6 lg:px-8 fixed sm:bottom-auto xs:bottom-0",
+          "bg-green-600 w-screen  transition-all duration-300",
           isScrolled ? "bg-opacity-90" : "bg-opacity-100",
         )}
       >
         {({ open }) => (
           <>
-            <div className="">
+            <div>
               <div className="flex h-16 items-center justify-between">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
@@ -182,7 +182,7 @@ export default function App() {
               leaveTo="opacity-0
                 xs:translate-y-10 sm:translate-y-[-10px]"
             >
-              <Disclosure.Panel className="md:hidden ">
+              <Disclosure.Panel className="md:hidden z-50">
                 <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                   {navigation.map((item) => (
                     <Disclosure.Button
@@ -241,6 +241,12 @@ export default function App() {
                     ))}
                   </div>
                 </div>
+                <Disclosure.Button>
+                  <div
+                    className="h-screen w-screen bg-transparent fixed sm:bottom-auto xs:bottom-full"
+                    onClick={() => !open}
+                  />
+                </Disclosure.Button>
               </Disclosure.Panel>
             </Transition>
           </>
