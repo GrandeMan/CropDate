@@ -175,7 +175,7 @@ const CropsList = function () {
                         </div>
                         <div className="mt-2 border-t border-gray-200 px-4 sm:px-6">
                           <h3 className="text-md font-medium text-gray-900">
-                            Latest Date
+                            Last Update
                           </h3>
                           <p className="mt-1 text-sm text-gray-500">
                             {selectedCrop.date.split(" ").slice(0, 1).join("")}

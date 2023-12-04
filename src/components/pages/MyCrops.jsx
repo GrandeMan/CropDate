@@ -15,6 +15,7 @@ import {
 import { StarIcon as StarOutline } from "@heroicons/react/24/outline";
 import CurrencyFormatter from "../library/currencyHandler/CurrencyFormatter";
 import { titleCase } from "../library/Item";
+import CurrencySelector from "../library/currencyHandler/CurrencySelector";
 
 const MyCrops = () => {
   const {
@@ -79,12 +80,19 @@ const MyCrops = () => {
             <h2 id="crops-heading" className="sr-only">
               Your Crops
             </h2>
-            <div className="grid grid-rows-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {favoriteCrops.map((crop, id) => (
-                <Link key={id} onClick={() => handleCropClick(crop)}>
-                  <Item data={crop} />
-                </Link>
-              ))}
+            <div>
+              <div className="flex justify-end sm:px-6 lg:px-9">
+                <span className="text-lg p-1">
+                  <CurrencySelector />
+                </span>
+              </div>
+              <div className="grid grid-rows-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {favoriteCrops.map((crop, id) => (
+                  <Link key={id} onClick={() => handleCropClick(crop)}>
+                    <Item data={crop} />
+                  </Link>
+                ))}
+              </div>
             </div>
           </section>
         </main>
@@ -175,7 +183,7 @@ const MyCrops = () => {
                         </div>
                         <div className="mt-2 border-t border-gray-200 px-4 sm:px-6">
                           <h3 className="text-md font-medium text-gray-900">
-                            Latest Date
+                            Last Update
                           </h3>
                           <p className="mt-1 text-sm text-gray-500">
                             {selectedCrop.date.split(" ").slice(0, 1).join("")}
