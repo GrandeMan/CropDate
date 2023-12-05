@@ -14,12 +14,13 @@ import {
 } from "@heroicons/react/20/solid";
 import CurrencySelector from "../library/currencyHandler/CurrencySelector";
 import useCrops from "../library/cropsHandler/useCrops";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Item, { titleCase } from "../library/Item";
 import Fuse from "fuse.js";
 import CurrencyFormatter from "../library/currencyHandler/CurrencyFormatter";
 import { useFavorites } from "../library/cropsHandler/FavouritesContext";
 import Modal from "../library/Modal";
+import CropDetails from "./CropDetails";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -114,15 +115,126 @@ const CropsList = function () {
             <div className="fixed inset-0 z-40 flex">
               <Transition.Child
                 as={Fragment}
-                enter="transition ease-in-out duration-300 transform"
-                enterFrom="translate-x-full"
-                enterTo="translate-x-0"
-                leave="transition ease-in-out duration-300 transform"
-                leaveFrom="translate-x-0"
-                leaveTo="translate-x-full"
+                enter="transition lg:transition-opacity ease-in-out lg:ease-linear duration-300 transform"
+                enterFrom="translate-x-full lg:translate-x-0 lg:opacity-0"
+                enterTo="translate-x-0 lg:opacity-100"
+                leave="transition lg:transition-opacity ease-in-out lg:ease-linear duration-300 transform"
+                leaveFrom="translate-x-0 lg:opacity-100"
+                leaveTo="translate-x-full lg:translate-x-0 lg:opacity-0"
               >
-                <Dialog.Panel className="relative sm:pt-16 ml-auto flex h-full w-4/5 flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
-                  <div className="flex items-center justify-between px-4">
+                <Dialog.Panel className="relative rounded-lg lg:pt-4 sm:pt-16 ml-auto flex flex-col lg:fixed lg:top-28 lg:left-1/4  lg:h-3/4 lg:w-1/2 xs:h-full md:w-1/2 xs:w-3/4  overflow-y-auto bg-white py-4 pb-12 shadow-xl">
+                  {/* Render when screen is large and above */}
+                  {selectedCrop ? (
+                    <div className="px-8 lg:flex gap-4 justify-between flex-col h-full xs:hidden">
+                      <div className="flex justify-end">
+                        <button
+                          type="button"
+                          className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400"
+                          onClick={() => setsideContentOpen(false)}
+                        >
+                          <span className="sr-only">Close menu</span>
+                          <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                        </button>
+                      </div>
+                      <div className="flex flex-col items-center justify-center h-2/5">
+                        <span>--Graph here---</span>
+                      </div>
+                      <div className="grid grid-rows-5 w-full h-2/5">
+                        <div className="grid grid-cols-2 text-center">
+                          <span className="bg-green-200 font-bold px-2 py-4 min-h-max min-w-max">
+                            Category
+                          </span>
+                          <span className="border p-2 min-h-max min-w-max text-center">
+                            {titleCase(selectedCrop.category)}
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-2 text-center">
+                          <span className="bg-green-200 font-bold px-2 py-4 min-h-max min-w-max">
+                            Name
+                          </span>
+                          <span className="border p-2 min-h-max min-w-max text-center ">
+                            {titleCase(selectedCrop.commodity)}
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-2 text-center">
+                          <span className="bg-green-200 font-bold px-2 py-4 min-h-max min-w-max">
+                            Last Update
+                          </span>
+                          <span className="border p-2 min-h-max min-w-max text-center">
+                            {selectedCrop.date.split(" ").slice(0, 1).join("")}
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-2 text-center">
+                          <span className="bg-green-200 font-bold px-2 py-4 min-h-max min-w-max">
+                            Price
+                          </span>
+                          <span className="border p-2 min-h-max min-w-max text-center">
+                            {selectedCrop.price !== 0 ? (
+                              <>
+                                <CurrencyFormatter value={selectedCrop.price} />{" "}
+                                per{" "}
+                                {selectedCrop.unit === "100's"
+                                  ? "100's"
+                                  : selectedCrop.unit.toUpperCase()}
+                              </>
+                            ) : (
+                              "Price not available"
+                            )}
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-2 text-center">
+                          <span className="bg-green-200 font-bold px-2 py-4 min-h-max min-w-max">
+                            Volume Sold ({selectedCrop.unit})
+                          </span>
+                          <span className="border p-2 min-h-max min-w-max text-center">
+                            {selectedCrop.volume}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-center">
+                        <button
+                          type="button"
+                          onClick={toggleFavorite}
+                          className="flex items-center rounded-md bg-green-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
+                        >
+                          {isCropFavorited(selectedCrop.id) ? (
+                            <MinusIcon
+                              className="-ml-0.5 mr-1.5 h-5 w-5 stroke-white"
+                              aria-hidden="true"
+                            />
+                          ) : (
+                            <PlusIcon
+                              className="-ml-0.5 mr-1.5 h-5 w-5 stroke-white"
+                              aria-hidden="true"
+                            />
+                          )}
+                          {isCropFavorited(selectedCrop.id)
+                            ? "Remove from your list"
+                            : "Add to your list"}
+                        </button>
+                      </div>
+                      {modalOpen && (
+                        <Modal
+                          icon={
+                            isCropFavorited(selectedCrop.id) ? (
+                              <StarSolid className="h-10 w-10 text-green-500" />
+                            ) : (
+                              <StarOutline className="h-10 w-10 text-green-500" />
+                            )
+                          }
+                          text={
+                            isCropFavorited(selectedCrop.id)
+                              ? "Added to your list"
+                              : "Removed from your list"
+                          }
+                        />
+                      )}
+                    </div>
+                  ) : (
+                    <p>Select a crop to view details</p>
+                  )}
+                  {/* Render when screen is less than large */}
+                  <div className="flex items-center justify-between px-4 lg:hidden">
                     <h2 className="text-lg font-medium text-gray-900">
                       {selectedCrop ? titleCase(selectedCrop.commodity) : ""}
                     </h2>
@@ -135,7 +247,7 @@ const CropsList = function () {
                       <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                     </button>
                   </div>
-                  <div className="mt-4 border-t border-gray-200">
+                  <div className="mt-4 border-t border-gray-200 lg:hidden">
                     {/* Display crop details */}
                     {selectedCrop ? (
                       <>
@@ -167,7 +279,7 @@ const CropsList = function () {
                         </div>
                         <div className="mt-2 border-t border-gray-200 px-4 sm:px-6">
                           <h3 className="text-md font-medium text-gray-900">
-                            Volume
+                            Volume Sold ({selectedCrop.unit})
                           </h3>
                           <p className="mt-1 text-sm text-gray-500">
                             {selectedCrop.volume}
@@ -181,7 +293,7 @@ const CropsList = function () {
                             {selectedCrop.date.split(" ").slice(0, 1).join("")}
                           </p>
                         </div>
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 px-4">
+                        <div className="grid md:grid-cols-2 xs:grid-cols-1 xs:grid-rows-2 gap-4 mt-4 px-2">
                           <button
                             type="button"
                             onClick={toggleFavorite}

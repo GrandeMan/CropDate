@@ -11,19 +11,33 @@ const CropDetails = () => {
   const crop = cropsData[id];
 
   return (
-    <main className="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
-      <section aria-labelledby="details-heading" className="pb-24 pt-6">
+    <main className="flex flex-col h-full p-4 lg:px-8">
+      <section
+        aria-labelledby="graph-heading"
+        className="relative h-52 flex items-center justify-center sm:p-2 lg:px-9 "
+      >
+        <h2 id="graph-heading" className="sr-only">
+          Crop Graph
+        </h2>
+        <div className="">
+          <span className="text-lg p-1">---Graph Here---</span>
+        </div>
+      </section>
+      <section
+        aria-labelledby="details-heading"
+        className="flex flex-col pb-24 pt-6"
+      >
         <h2 id="details-heading" className="sr-only">
           Crop Details
         </h2>
-        <div className="flex justify-end sm:px-6 lg:px-9">
+        <div className="flex sm:p-2 lg:px-9">
           <span className="text-lg p-1">
-            <CurrencySelector />
+            Currency: <CurrencySelector />
           </span>
         </div>
         {crop && (
-          <div className="grid md:grid-cols-5 sm:grid-rows-5 w-full">
-            <div className="grid md:grid-cols-1 sm:grid-cols-2 xs:grid-cols-2 text-center">
+          <div className="grid lg:grid-cols-5 sm:grid-rows-5 w-full">
+            <div className="grid lg:grid-cols-1 sm:grid-cols-2 xs:grid-cols-2 text-center">
               <span className="bg-green-200 font-bold px-2 py-4 min-h-max min-w-max">
                 Category
               </span>
@@ -31,7 +45,7 @@ const CropDetails = () => {
                 {titleCase(crop.category)}
               </span>
             </div>
-            <div className="grid md:grid-cols-1 sm:grid-cols-2 xs:grid-cols-2 text-center">
+            <div className="grid lg:grid-cols-1 sm:grid-cols-2 xs:grid-cols-2 text-center ">
               <span className="bg-green-200 font-bold px-2 py-4 min-h-max min-w-max">
                 Name
               </span>
@@ -39,7 +53,7 @@ const CropDetails = () => {
                 {titleCase(crop.commodity)}
               </span>
             </div>
-            <div className="grid md:grid-cols-1 sm:grid-cols-2 xs:grid-cols-2 text-center">
+            <div className="grid lg:grid-cols-1 sm:grid-cols-2 xs:grid-cols-2 text-center">
               <span className="bg-green-200 font-bold px-2 py-4 min-h-max min-w-max">
                 Last Update
               </span>
@@ -47,7 +61,7 @@ const CropDetails = () => {
                 {crop.date.split(" ").slice(0, 1).join("")}
               </span>
             </div>
-            <div className="grid md:grid-cols-1 sm:grid-cols-2 xs:grid-cols-2 text-center">
+            <div className="grid lg:grid-cols-1 sm:grid-cols-2 xs:grid-cols-2 text-center">
               <span className="bg-green-200 font-bold px-2 py-4 min-h-max min-w-max">
                 Price
               </span>
@@ -62,7 +76,7 @@ const CropDetails = () => {
                 )}
               </span>
             </div>
-            <div className="grid md:grid-cols-1 sm:grid-cols-2 xs:grid-cols-2 text-center">
+            <div className="grid lg:grid-cols-1 sm:grid-cols-2 xs:grid-cols-2 text-center">
               <span className="bg-green-200 font-bold px-2 py-4 min-h-max min-w-max">
                 Volume Sold ({crop.unit})
               </span>

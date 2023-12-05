@@ -13,7 +13,7 @@ function CropsIndex() {
       <header className="bg-gradient-to-b from-green-600">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex justify-between">
           <h1 className="text-3xl font-bold tracking-tight text-green-900">
-            Crops
+            <Link to="/crops">Crops</Link>
           </h1>
           <nav className="ml-10 flex items-baseline space-x-2">
             {navigation.map((item) => (

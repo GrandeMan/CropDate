@@ -40,8 +40,7 @@ const Modal = ({ icon, text }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="fixed sm:top-3/4 xs:top-10 flex gap-4 items-center justify-center max-w-md overflow-hidden rounded-2xl bg-slate-100/95 p-6  shadow-xl ">
-                  {/* Use JSX syntax for rendering icons */}
+                <Dialog.Panel className="fixed md:top-10 sm:top-3/4 xs:top-10 flex gap-4 items-center justify-center max-w-md overflow-hidden rounded-2xl bg-slate-100/95 p-6  shadow-xl ">
                   <span className="opacity-40">{icon}</span>
                   <Dialog.Title
                     as="h3"
