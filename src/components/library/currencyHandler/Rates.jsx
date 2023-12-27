@@ -18,19 +18,17 @@ const getRates = async () => {
     if (cachedData && cachedData.date === getCurrentDate()) {
       console.log("Using cached rates");
     } else {
-      const response = await axios.get("/api/exchangerate");
+      const rates = await axios.get("/api/exchangerate");
 
       // Check if the response contains the expected data structure
-      if (!response.data || !response.data.conversion_rates) {
-        throw new Error("Invalid response format from exchange rate API");
+      if (!rates) {
+        throw new Error("Invalid response from API");
       }
-
-      const rates = response.data.conversion_rates;
 
       // Cache the rates
       localStorageData("exchangeRates", {
         date: getCurrentDate(),
-        rates,
+        rates: rates.data,
       });
 
       console.log("Using new rates");

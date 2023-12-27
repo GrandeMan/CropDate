@@ -22,10 +22,8 @@ const CropsProvider = ({ children }) => {
           setCropsData(cachedCropData.data);
           setLoading(false);
         } else {
-          const response = await axios.get(
-            "https://agrimarketwatch.herokuapp.com/latest",
-          );
-          setCropsData(response.data.crops);
+          const response = await axios.get("/api/crops");
+          setCropsData(response.data);
           // console.log("cropsData", response.data.crops);
           localStorageData("cropsData", response.data);
           setLoading(false);

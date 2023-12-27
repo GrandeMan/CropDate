@@ -20,7 +20,6 @@ import Fuse from "fuse.js";
 import CurrencyFormatter from "../library/currencyHandler/CurrencyFormatter";
 import { useFavorites } from "../library/cropsHandler/FavouritesContext";
 import Modal from "../library/Modal";
-import CropDetails from "./CropDetails";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -54,11 +53,9 @@ const CropsList = function () {
     navigate(`/crops/${selectedCrop.id}`);
   };
 
-  const indices = [...Array(cropsData.length).keys()];
-
-  const allCropsSorted = [...cropsData]
-    .map((crop, index) => ({ ...crop, id: indices[index] }))
-    .sort((a, b) => a.commodity.localeCompare(b.commodity));
+  const allCropsSorted = cropsData.sort((a, b) =>
+    a.commodity.localeCompare(b.commodity),
+  );
 
   const sortOptions = [
     "All Crops",
@@ -161,7 +158,7 @@ const CropsList = function () {
                             Last Update
                           </span>
                           <span className="border p-2 min-h-max min-w-max text-center">
-                            {selectedCrop.date.split(" ").slice(0, 1).join("")}
+                            {selectedCrop.dates[0].slice(0, 10)}
                           </span>
                         </div>
                         <div className="grid grid-cols-2 text-center">
@@ -169,9 +166,11 @@ const CropsList = function () {
                             Price
                           </span>
                           <span className="border p-2 min-h-max min-w-max text-center">
-                            {selectedCrop.price !== 0 ? (
+                            {selectedCrop.prices[0] !== 0 ? (
                               <>
-                                <CurrencyFormatter value={selectedCrop.price} />{" "}
+                                <CurrencyFormatter
+                                  value={selectedCrop.prices[0]}
+                                />{" "}
                                 per{" "}
                                 {selectedCrop.unit === "100's"
                                   ? "100's"
@@ -187,7 +186,7 @@ const CropsList = function () {
                             Volume Sold ({selectedCrop.unit})
                           </span>
                           <span className="border p-2 min-h-max min-w-max text-center">
-                            {selectedCrop.volume}
+                            {selectedCrop.volumes[0]}
                           </span>
                         </div>
                       </div>
@@ -264,9 +263,11 @@ const CropsList = function () {
                             Latest Price
                           </h3>
                           <p className="mt-1 text-sm text-gray-500">
-                            {selectedCrop.price !== 0 ? (
+                            {selectedCrop.prices[0] !== 0 ? (
                               <>
-                                <CurrencyFormatter value={selectedCrop.price} />{" "}
+                                <CurrencyFormatter
+                                  value={selectedCrop.prices[0]}
+                                />{" "}
                                 per{" "}
                                 {selectedCrop.unit === "100's"
                                   ? "100's"
@@ -282,7 +283,7 @@ const CropsList = function () {
                             Volume Sold ({selectedCrop.unit})
                           </h3>
                           <p className="mt-1 text-sm text-gray-500">
-                            {selectedCrop.volume}
+                            {selectedCrop.volumes[0]}
                           </p>
                         </div>
                         <div className="mt-2 border-t border-gray-200 px-4 sm:px-6">
@@ -290,7 +291,7 @@ const CropsList = function () {
                             Last Update
                           </h3>
                           <p className="mt-1 text-sm text-gray-500">
-                            {selectedCrop.date.split(" ").slice(0, 1).join("")}
+                            {selectedCrop.dates[0].slice(0, 10)}
                           </p>
                         </div>
                         <div className="grid md:grid-cols-2 xs:grid-cols-1 xs:grid-rows-2 gap-4 mt-4 px-2">

@@ -130,13 +130,14 @@ const MyCrops = () => {
                 leaveTo="translate-x-full lg:translate-x-0 lg:opacity-0"
               >
                 <Dialog.Panel className="relative rounded-lg lg:pt-4 sm:pt-16 ml-auto flex flex-col lg:fixed lg:top-28 lg:left-1/4  lg:h-3/4 lg:w-1/2 xs:h-full md:w-1/2 xs:w-3/4  overflow-y-auto bg-white py-4 pb-12 shadow-xl">
+                  {/* Render when screen is large and above */}
                   {selectedCrop ? (
                     <div className="px-8 lg:flex gap-4 justify-between flex-col h-full xs:hidden">
                       <div className="flex justify-end">
                         <button
                           type="button"
                           className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400"
-                          onClick={() => setsideContentOpen(false)}
+                          onClick={() => setSideContentOpen(false)}
                         >
                           <span className="sr-only">Close menu</span>
                           <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -167,7 +168,7 @@ const MyCrops = () => {
                             Last Update
                           </span>
                           <span className="border p-2 min-h-max min-w-max text-center">
-                            {selectedCrop.date.split(" ").slice(0, 1).join("")}
+                            {selectedCrop.dates[0].slice(0, 10)}
                           </span>
                         </div>
                         <div className="grid grid-cols-2 text-center">
@@ -175,9 +176,11 @@ const MyCrops = () => {
                             Price
                           </span>
                           <span className="border p-2 min-h-max min-w-max text-center">
-                            {selectedCrop.price !== 0 ? (
+                            {selectedCrop.prices[0] !== 0 ? (
                               <>
-                                <CurrencyFormatter value={selectedCrop.price} />{" "}
+                                <CurrencyFormatter
+                                  value={selectedCrop.prices[0]}
+                                />{" "}
                                 per{" "}
                                 {selectedCrop.unit === "100's"
                                   ? "100's"
@@ -193,7 +196,7 @@ const MyCrops = () => {
                             Volume Sold ({selectedCrop.unit})
                           </span>
                           <span className="border p-2 min-h-max min-w-max text-center">
-                            {selectedCrop.volume}
+                            {selectedCrop.volumes[0]}
                           </span>
                         </div>
                       </div>
@@ -239,6 +242,7 @@ const MyCrops = () => {
                   ) : (
                     <p>Select a crop to view details</p>
                   )}
+                  {/* Render when screen is less than large */}
                   <div className="flex items-center justify-between px-4 lg:hidden">
                     <h2 className="text-lg font-medium text-gray-900">
                       {selectedCrop ? titleCase(selectedCrop.commodity) : ""}
@@ -269,9 +273,11 @@ const MyCrops = () => {
                             Latest Price
                           </h3>
                           <p className="mt-1 text-sm text-gray-500">
-                            {selectedCrop.price !== 0 ? (
+                            {selectedCrop.prices[0] !== 0 ? (
                               <>
-                                <CurrencyFormatter value={selectedCrop.price} />{" "}
+                                <CurrencyFormatter
+                                  value={selectedCrop.prices[0]}
+                                />{" "}
                                 per{" "}
                                 {selectedCrop.unit === "100's"
                                   ? "100's"
@@ -287,7 +293,7 @@ const MyCrops = () => {
                             Volume Sold ({selectedCrop.unit})
                           </h3>
                           <p className="mt-1 text-sm text-gray-500">
-                            {selectedCrop.volume}
+                            {selectedCrop.volumes[0]}
                           </p>
                         </div>
                         <div className="mt-2 border-t border-gray-200 px-4 sm:px-6">
@@ -295,7 +301,7 @@ const MyCrops = () => {
                             Last Update
                           </h3>
                           <p className="mt-1 text-sm text-gray-500">
-                            {selectedCrop.date.split(" ").slice(0, 1).join("")}
+                            {selectedCrop.dates[0].slice(0, 10)}
                           </p>
                         </div>
                         <div className="grid md:grid-cols-2 xs:grid-cols-1 xs:grid-rows-2 gap-4 mt-4 px-2">

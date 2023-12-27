@@ -18,9 +18,9 @@ const Item = ({ data }) => {
             {titleCase(data.commodity)}
           </div>
           <div className="text-sm text-gray-500">
-            {data.price !== 0 ? (
+            {data.prices[0] !== 0 ? (
               <>
-                <CurrencyFormatter value={data.price} /> per{" "}
+                <CurrencyFormatter value={data.prices[0]} /> per{" "}
                 {data.unit === "100's" ? "100's" : data.unit.toUpperCase()}
               </>
             ) : (

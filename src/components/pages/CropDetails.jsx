@@ -58,7 +58,7 @@ const CropDetails = () => {
                 Last Update
               </span>
               <span className="border p-2 min-h-max min-w-max text-center">
-                {crop.date.split(" ").slice(0, 1).join("")}
+                {crop.dates[0].slice(0, 10)}
               </span>
             </div>
             <div className="grid lg:grid-cols-1 sm:grid-cols-2 xs:grid-cols-2 text-center">
@@ -66,9 +66,9 @@ const CropDetails = () => {
                 Price
               </span>
               <span className="border p-2 min-h-max min-w-max text-center">
-                {crop.price !== 0 ? (
+                {crop.prices[0] !== 0 ? (
                   <>
-                    <CurrencyFormatter value={crop.price} /> per{" "}
+                    <CurrencyFormatter value={crop.prices[0]} /> per{" "}
                     {crop.unit === "100's" ? "100's" : crop.unit.toUpperCase()}
                   </>
                 ) : (
@@ -81,7 +81,7 @@ const CropDetails = () => {
                 Volume Sold ({crop.unit})
               </span>
               <span className="border p-2 min-h-max min-w-max text-center">
-                {crop.volume}
+                {crop.volumes[0]}
               </span>
             </div>
           </div>
