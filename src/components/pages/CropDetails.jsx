@@ -3,12 +3,14 @@ import useCrops from "../library/cropsHandler/useCrops";
 import CurrencySelector from "../library/currencyHandler/CurrencySelector";
 import CurrencyFormatter from "../library/currencyHandler/CurrencyFormatter";
 import { titleCase } from "../library/Item";
+import { Chart as ChartJS } from "chart.js/auto";
+import { Bar, Line } from "react-chartjs-2";
 
 const CropDetails = () => {
   const { id } = useParams();
   const { cropsData } = useCrops();
 
-  const crop = cropsData[id];
+  const crop = cropsData.find((crop) => crop.id === Number(id));
 
   return (
     <main className="flex flex-col h-full p-4 lg:px-8">
@@ -20,7 +22,29 @@ const CropDetails = () => {
           Crop Graph
         </h2>
         <div className="">
-          <span className="text-lg p-1">---Graph Here---</span>
+          <Bar
+            data={{
+              labels: crop?.dates.map((date) => date.slice(0, 10)),
+              datasets: [
+                {
+                  label: "Price",
+                  data: crop?.prices.slice(0, 7),
+                  backgroundColor: "rgba(255, 99, 132, 0.2)",
+                  borderColor: "rgba(255, 99, 132, 1)",
+                  borderWidth: 1,
+                },
+              ],
+            }}
+            options={{
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                y: {
+                  beginAtZero: true,
+                },
+              },
+            }}
+          />
         </div>
       </section>
       <section

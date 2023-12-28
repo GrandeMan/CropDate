@@ -87,8 +87,8 @@ const MyCrops = () => {
                 </span>
               </div>
               <div className="grid grid-rows-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {favoriteCrops.map((crop, id) => (
-                  <Link key={id} onClick={() => handleCropClick(crop)}>
+                {favoriteCrops.map((crop, index) => (
+                  <Link key={index} onClick={() => handleCropClick(crop)}>
                     <Item data={crop} />
                   </Link>
                 ))}

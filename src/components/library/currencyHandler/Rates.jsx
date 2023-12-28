@@ -12,11 +12,11 @@ const getCurrentDate = () => {
 const getRates = async () => {
   try {
     const cachedData = localStorageData("exchangeRates");
-    console.log("cachedData", cachedData);
+    // console.log("cachedData", cachedData);
 
     // Check if the cached rates are still valid
     if (cachedData && cachedData.date === getCurrentDate()) {
-      console.log("Using cached rates");
+      // console.log("Using cached rates");
     } else {
       const rates = await axios.get("/api/exchangerate");
 
@@ -31,7 +31,7 @@ const getRates = async () => {
         rates: rates.data,
       });
 
-      console.log("Using new rates");
+      // console.log("Using new rates");
     }
 
     const cachedRates = localStorageData("exchangeRates").rates;

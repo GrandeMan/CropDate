@@ -1,5 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
   XMarkIcon,
@@ -26,7 +26,7 @@ function classNames(...classes) {
 }
 
 const CropsList = function () {
-  const [sideContentOpen, setsideContentOpen] = useState(false);
+  const [sideContentOpen, setSideContentOpen] = useState(false);
   const { cropsData, loading } = useCrops();
   const [selectedCrop, setSelectedCrop] = useState(null);
   const [selectedTab, setSelectedTab] = useState("All Crops");
@@ -50,8 +50,16 @@ const CropsList = function () {
   };
 
   const handleDetailsClick = () => {
-    navigate(`/crops/${selectedCrop.id}`);
+    if (selectedCrop) {
+      navigate(`/crops/${selectedCrop.id}`);
+    }
   };
+
+  // const indices = [...Array(cropsData.length).keys()];
+
+  // const allCropsSorted = [...cropsData]
+  //   .map((crop, index) => ({ ...crop, id: indices[index] }))
+  //   .sort((a, b) => a.commodity.localeCompare(b.commodity));
 
   const allCropsSorted = cropsData.sort((a, b) =>
     a.commodity.localeCompare(b.commodity),
@@ -94,7 +102,7 @@ const CropsList = function () {
             as="div"
             className="relative"
             onClose={() => {
-              setsideContentOpen(false);
+              setSideContentOpen(false);
             }}
           >
             <Transition.Child
@@ -127,7 +135,7 @@ const CropsList = function () {
                         <button
                           type="button"
                           className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400"
-                          onClick={() => setsideContentOpen(false)}
+                          onClick={() => setSideContentOpen(false)}
                         >
                           <span className="sr-only">Close menu</span>
                           <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -240,7 +248,7 @@ const CropsList = function () {
                     <button
                       type="button"
                       className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400"
-                      onClick={() => setsideContentOpen(false)}
+                      onClick={() => setSideContentOpen(false)}
                     >
                       <span className="sr-only">Close menu</span>
                       <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -423,13 +431,16 @@ const CropsList = function () {
             </h2>
 
             <div className="grid grid-rows-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredCrops.map((crop, id) => (
+              {filteredCrops.map((crop, index) => (
                 <Link
-                  key={id}
+                  key={index}
                   onClick={() => {
-                    setSelectedCrop(filteredCrops[id]);
-                    setsideContentOpen(true);
+                    setSelectedCrop(crop);
+                    setSideContentOpen(true);
                   }}
+                  role="button"
+                  aria-label={`Select ${crop.commodity}`}
+                  tabIndex={0}
                 >
                   <Item data={crop} />
                 </Link>

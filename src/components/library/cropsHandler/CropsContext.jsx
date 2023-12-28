@@ -24,7 +24,7 @@ const CropsProvider = ({ children }) => {
         } else {
           const response = await axios.get("/api/crops");
           setCropsData(response.data);
-          // console.log("cropsData", response.data.crops);
+          console.log("cropsData", response.data);
           localStorageData("cropsData", response.data);
           setLoading(false);
         }
