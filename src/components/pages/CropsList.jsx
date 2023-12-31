@@ -87,8 +87,6 @@ const CropsList = function () {
       return result.length > 0;
     });
 
-  // console.log(filteredCrops);
-
   if (loading) {
     const override = css`
       display: block;

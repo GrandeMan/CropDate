@@ -24,7 +24,7 @@ export const FavoritesProvider = ({ children }) => {
       setFavoriteCrops((prevFavorites) => {
         const newFavorites = [...prevFavorites, crop];
         debouncedLocalStorageData(LOCAL_STORAGE_KEY, newFavorites);
-        console.log("crop added, showing newFavorites", newFavorites);
+        // console.log("crop added, showing newFavorites", newFavorites);
         return newFavorites;
       });
     }
@@ -34,7 +34,7 @@ export const FavoritesProvider = ({ children }) => {
     setFavoriteCrops((prevFavorites) => {
       const newFavorites = prevFavorites.filter((crop) => crop.id !== cropId);
       debouncedLocalStorageData(LOCAL_STORAGE_KEY, newFavorites);
-      console.log("crop removed, showing newFavorites", newFavorites);
+      // console.log("crop removed, showing newFavorites", newFavorites);
       return newFavorites;
     });
   };

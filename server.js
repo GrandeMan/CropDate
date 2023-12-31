@@ -8,7 +8,7 @@ dotenv.config();
 const app = express();
 
 //Enable CORS on all routes
-app.use(cors());
+// app.use(cors());
 
 app.get("/api/exchangerate", async (req, res) => {
   try {
