@@ -16,6 +16,7 @@ import { StarIcon as StarOutline } from "@heroicons/react/24/outline";
 import CurrencyFormatter from "../library/currencyHandler/CurrencyFormatter";
 import { titleCase } from "../library/Item";
 import CurrencySelector from "../library/currencyHandler/CurrencySelector";
+import BarChart, { defaultOptions } from "../library/BarChart";
 
 const MyCrops = () => {
   const {
@@ -143,10 +144,85 @@ const MyCrops = () => {
                           <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                         </button>
                       </div>
-                      <div className="flex flex-col items-center justify-center h-2/5">
-                        <span>--Graph here---</span>
+                      <div className="flex flex-cols gap-2 justify-center h-3/6">
+                        <div className="w-1/2">
+                          <BarChart
+                            data={{
+                              labels: selectedCrop?.dates.map((date) =>
+                                date.slice(0, 10),
+                              ),
+                              datasets: [
+                                {
+                                  label: "Price",
+                                  data: selectedCrop?.prices.slice(0, 7),
+                                  backgroundColor: "rgba(255, 99, 132, 0.2)",
+                                  borderColor: "rgba(255, 99, 132, 1)",
+                                  borderWidth: 2,
+                                  borderRadius: 2,
+                                },
+                              ],
+                            }}
+                            options={{
+                              ...defaultOptions,
+                              scales: {
+                                y: {
+                                  ...defaultOptions.scales.y,
+                                  title: {
+                                    ...defaultOptions.scales.y.title,
+                                    text: `Price (${selectedCrop?.unit})`,
+                                  },
+                                },
+                                x: {
+                                  ...defaultOptions.scales.x,
+                                  title: {
+                                    ...defaultOptions.scales.x.title,
+                                    text: "Date",
+                                  },
+                                },
+                              },
+                            }}
+                          />
+                        </div>
+                        <div className="w-1/2">
+                          <BarChart
+                            data={{
+                              labels: selectedCrop?.dates.map((date) =>
+                                date.slice(0, 10),
+                              ),
+                              datasets: [
+                                {
+                                  label: "Volume",
+                                  data: selectedCrop?.volumes.slice(0, 7),
+                                  backgroundColor: "rgba(54, 162, 235, 0.2)",
+                                  borderColor: "rgba(54, 162, 235, 1)",
+                                  borderWidth: 2,
+                                  borderRadius: 2,
+                                },
+                              ],
+                            }}
+                            options={{
+                              ...defaultOptions,
+                              scales: {
+                                y: {
+                                  ...defaultOptions.scales.y,
+                                  title: {
+                                    ...defaultOptions.scales.y.title,
+                                    text: `Volume (${selectedCrop?.unit})`,
+                                  },
+                                },
+                                x: {
+                                  ...defaultOptions.scales.x,
+                                  title: {
+                                    ...defaultOptions.scales.x.title,
+                                    text: "Date",
+                                  },
+                                },
+                              },
+                            }}
+                          />
+                        </div>
                       </div>
-                      <div className="grid grid-rows-5 w-full h-2/5">
+                      <div className="grid grid-rows-5 w-full h-2/6">
                         <div className="grid grid-cols-2 text-center">
                           <span className="bg-green-200 font-bold px-2 py-4 min-h-max min-w-max">
                             Category

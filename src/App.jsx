@@ -22,11 +22,11 @@ const navigation = [
   { name: "Overview", href: "/", current: true },
   { name: "Crops", href: "/crops", current: false },
 ];
-const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
-];
+// const userNavigation = [
+//   { name: "Your Profile", href: "#" },
+//   { name: "Settings", href: "#" },
+//   { name: "Sign out", href: "#" },
+// ];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -122,7 +122,7 @@ export default function App() {
                           />
                         </Menu.Button>
                       </div>
-                      <Transition
+                      {/* <Transition
                         as={Fragment}
                         enter="transition ease-out duration-100"
                         enterFrom="transform opacity-0 scale-95"
@@ -148,7 +148,7 @@ export default function App() {
                             </Menu.Item>
                           ))}
                         </Menu.Items>
-                      </Transition>
+                      </Transition> */}
                     </Menu>
                   </div>
                 </div>
@@ -228,7 +228,7 @@ export default function App() {
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
                     </button>
                   </div>
-                  <div className="mt-3 space-y-1 px-2">
+                  {/* <div className="mt-3 space-y-1 px-2">
                     {userNavigation.map((item) => (
                       <Disclosure.Button
                         key={item.name}
@@ -239,7 +239,7 @@ export default function App() {
                         {item.name}
                       </Disclosure.Button>
                     ))}
-                  </div>
+                  </div> */}
                 </div>
                 <Disclosure.Button>
                   <div

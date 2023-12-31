@@ -1,110 +1,15 @@
-import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import useCrops from "../library/cropsHandler/useCrops";
 import CurrencySelector from "../library/currencyHandler/CurrencySelector";
 import CurrencyFormatter from "../library/currencyHandler/CurrencyFormatter";
 import { titleCase } from "../library/Item";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import { Bar, Line } from "react-chartjs-2";
+import BarChart, { defaultOptions } from "../library/BarChart";
 
 const CropDetails = () => {
   const { id } = useParams();
   const { cropsData } = useCrops();
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
 
   const crop = cropsData.find((crop) => crop.id === Number(id));
-  const chartRef = useRef(null);
-
-  const updateWindowSize = () => {
-    setWindowSize({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
-  };
-
-  useEffect(() => {
-    const handleResize = () => {
-      updateWindowSize();
-      options.width =
-        windowSize.width < 896 ? windowSize.width : windowSize.width / 2;
-
-      if (chartRef.current && chartRef.current.chartInstance) {
-        chartRef.current.chartInstance.update();
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, [windowSize]);
-
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend,
-  );
-
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      y: {
-        title: {
-          display: true,
-          text: "Y Axis",
-          color: "#000",
-          font: {
-            family: "Inter",
-            size: 16,
-            weight: "bold",
-            lineHeight: 1,
-          },
-          padding: { top: 0, left: 0, right: 0, bottom: 10 },
-        },
-        ticks: {
-          callback: function (value, index, values) {
-            return value.toLocaleString();
-          },
-        },
-      },
-      x: {
-        title: {
-          display: true,
-          text: "X Axis",
-          color: "#000",
-          font: {
-            family: "Inter",
-            size: 16,
-            weight: "bold",
-          },
-          padding: { top: 10, left: 0, right: 0, bottom: 0 },
-        },
-      },
-    },
-    plugins: {
-      legend: {
-        display: false,
-      },
-    },
-  };
 
   return (
     <main className="flex flex-col h-full p-4 lg:px-8">
@@ -115,9 +20,8 @@ const CropDetails = () => {
         <h2 id="graph-heading" className="sr-only">
           Crop Graph
         </h2>
-        <div className="flex-1 max-w-4xl">
-          <Bar
-            ref={chartRef}
+        <div className="flex-1 h-56 max-w-4xl">
+          <BarChart
             data={{
               labels: crop?.dates.map((date) => date.slice(0, 10)),
               datasets: [
@@ -127,23 +31,24 @@ const CropDetails = () => {
                   backgroundColor: "rgba(255, 99, 132, 0.2)",
                   borderColor: "rgba(255, 99, 132, 1)",
                   borderWidth: 2,
+                  borderRadius: 2,
                 },
               ],
             }}
             options={{
-              ...options,
+              ...defaultOptions,
               scales: {
                 y: {
-                  ...options.scales.y,
+                  ...defaultOptions.scales.y,
                   title: {
-                    ...options.scales.y.title,
+                    ...defaultOptions.scales.y.title,
                     text: `Price (${crop?.unit})`,
                   },
                 },
                 x: {
-                  ...options.scales.x,
+                  ...defaultOptions.scales.x,
                   title: {
-                    ...options.scales.x.title,
+                    ...defaultOptions.scales.x.title,
                     text: "Date",
                   },
                 },
@@ -151,9 +56,8 @@ const CropDetails = () => {
             }}
           />
         </div>
-        <div className="flex-1 max-w-4xl">
-          <Bar
-            ref={chartRef}
+        <div className="flex-1 h-56 max-w-4xl">
+          <BarChart
             data={{
               labels: crop?.dates.map((date) => date.slice(0, 10)),
               datasets: [
@@ -163,23 +67,24 @@ const CropDetails = () => {
                   backgroundColor: "rgba(54, 162, 235, 0.2)",
                   borderColor: "rgba(54, 162, 235, 1)",
                   borderWidth: 2,
+                  borderRadius: 2,
                 },
               ],
             }}
             options={{
-              ...options,
+              ...defaultOptions,
               scales: {
                 y: {
-                  ...options.scales.y,
+                  ...defaultOptions.scales.y,
                   title: {
-                    ...options.scales.y.title,
+                    ...defaultOptions.scales.y.title,
                     text: `Volume (${crop?.unit})`,
                   },
                 },
                 x: {
-                  ...options.scales.x,
+                  ...defaultOptions.scales.x,
                   title: {
-                    ...options.scales.x.title,
+                    ...defaultOptions.scales.x.title,
                     text: "Date",
                   },
                 },
