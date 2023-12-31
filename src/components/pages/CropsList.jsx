@@ -1,5 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { Fragment, useState, useEffect } from "react";
+import { css } from "@emotion/react";
+import { ClipLoader } from "react-spinners";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
   XMarkIcon,
@@ -88,7 +90,18 @@ const CropsList = function () {
   // console.log(filteredCrops);
 
   if (loading) {
-    return <p>Loading...</p>;
+    const override = css`
+      display: block;
+      margin: 0 auto;
+      border-color: red;
+    `;
+
+    return (
+      <div className="flex flex-col justify-center items-center h-screen">
+        <ClipLoader color="#1a1a1a" css={override} size={50} />
+        <p className="text-gray-600 mt-4">Loading crops...</p>
+      </div>
+    );
   }
 
   return (
