@@ -72,7 +72,7 @@ export default function App() {
                       <img
                         className="h-8 w-8 sm:h-10 sm:w-10"
                         style={{ filter: "brightness(0) invert(1)" }}
-                        src="https://png2.cleanpng.com/sh/b1cdf09496b80cef4330b73030d829cb/L0KzQYm3VcMyN6V4fZH0aYP2gLBuTfNwdaF6jNd7LXnmf7B6TgZmb5Z5eeRyYX6wc8bwkBlvbV50itlqbnnmPbf2jBQua5DoRd5uYXawhrbqlP9zNWZnSaI6YnS4QYi3VsY0NmQ7UKY6M0W1QYa5V8c5OmQ6T6IENEOxgLBu/kisspng-computer-icons-vegetarian-cuisine-organic-food-coc-leaf-vector-5b101bd5170663.3684135215277823570943.png"
+                        src="https://seekicon.com/free-icon-download/leaf_6.svg"
                         alt="CropDate"
                       />
                     </Link>

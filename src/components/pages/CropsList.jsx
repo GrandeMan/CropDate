@@ -72,7 +72,7 @@ const CropsList = function () {
     .filter(
       (crop) =>
         selectedTab === "All Crops" ||
-        crop.category === selectedTab.toLowerCase(),
+        crop.category === selectedTab.toUpperCase(),
     )
     .filter((crop) => {
       if (!searchTerm) return true; // Show all crops if no search term
@@ -84,6 +84,8 @@ const CropsList = function () {
       const result = fuse.search(searchTerm);
       return result.length > 0;
     });
+
+  // console.log(filteredCrops);
 
   if (loading) {
     return <p>Loading...</p>;
