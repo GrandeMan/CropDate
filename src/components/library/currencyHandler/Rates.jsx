@@ -18,7 +18,9 @@ const getRates = async () => {
     if (cachedData && cachedData.date === getCurrentDate()) {
       // console.log("Using cached rates");
     } else {
-      const rates = await axios.get("/api/exchangerate");
+      const rates = await axios.get(
+        "https://cropdate-server.azurewebsites.net/api/currency",
+      );
 
       // Check if the response contains the expected data structure
       if (!rates) {

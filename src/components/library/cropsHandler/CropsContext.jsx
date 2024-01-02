@@ -22,7 +22,14 @@ const CropsProvider = ({ children }) => {
           setCropsData(cachedCropData.data);
           setLoading(false);
         } else {
-          const response = await axios.get("/api/crops");
+          const response = await axios.get(
+            "https://cropdate-server.azurewebsites.net/api/crops",
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            },
+          );
           setCropsData(response.data);
           // console.log("cropsData", response.data);
           localStorageData("cropsData", response.data);
