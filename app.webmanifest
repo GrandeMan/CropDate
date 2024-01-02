@@ -1,7 +1,7 @@
 {
   "name": "CropDate",
   "start_url": "/",
-  "orientation": "portrait",
+  "orientation": "any",
   "theme_color": "#16a34a",
   "scope": "/",
   "display": "standalone",
