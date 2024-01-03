@@ -57,7 +57,7 @@ export default function App() {
       <Disclosure
         as="nav"
         className={classNames(
-          "mx-0 px-4 z-50 sm:px-6 lg:px-8 fixed sm:bottom-auto xs:bottom-0)",
+          "mx-0 px-4 z-50 sm:px-6 lg:px-8 fixed sm:bottom-auto xs:bottom-0",
           "bg-green-600 w-screen  transition-all duration-300",
           isScrolled ? "bg-opacity-90" : "bg-opacity-100",
         )}
