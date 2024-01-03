@@ -2,6 +2,7 @@ self.addEventListener("install", (event) => {
   caches.open("assets").then((cache) => {
     cache.addAll([
       "/",
+      "/crops",
       "/dist/assets/index-kK3Sg4ld.css",
       "/dist/assets/index-X1Ff2pNK.js",
       "/dist/assets/index-X1Ff2pNK.js.map",
