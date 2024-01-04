@@ -18,9 +18,15 @@ export default defineConfig({
   build: {
     outDir: "dist",
     assetsDir: "assets",
-    sourcemap: true,
+    sourcemap: false,
     rollupOptions: {
       input: "index.html",
+      output: {
+        manualChunks: (path) =>
+          path.split("/").reverse()[
+            path.split("/").reverse().indexOf("node_modules") - 1
+          ],
+      },
     },
   },
 });
