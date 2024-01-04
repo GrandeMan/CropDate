@@ -72,7 +72,7 @@ export default function App() {
                       <img
                         className="h-8 w-8 sm:h-10 sm:w-10"
                         style={{ filter: "brightness(0) invert(1)" }}
-                        src="./leaf_6.svg"
+                        src="/leaf_6.svg"
                         alt="CropDate"
                       />
                     </Link>
@@ -174,13 +174,11 @@ export default function App() {
             <Transition
               as={Fragment}
               enter="transition ease-in-out duration-300 transform"
-              enterFrom="opacity-0 xs:translate-y-10 sm:translate-y-[-10px]
-              "
+              enterFrom="opacity-0 xs:translate-y-10 sm:translate-y-[-10px]"
               enterTo="opacity-100 translate-y-0"
               leave="transition ease-in-out duration-200 transform"
               leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0
-                xs:translate-y-10 sm:translate-y-[-10px]"
+              leaveTo="opacity-0 xs:translate-y-10 sm:translate-y-[-10px]"
             >
               <Disclosure.Panel className="md:hidden z-50">
                 <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
