@@ -8,12 +8,12 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "/leaf_6_white.png",
+      "src": "/public/leaf_6_white.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "/leaf_green_bg.png",
+      "src": "/public/leaf_green_bg.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
