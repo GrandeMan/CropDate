@@ -58,8 +58,8 @@ const CropsList = function () {
     }
   };
 
-  const allCropsSorted = cropsData.sort((a, b) =>
-    a.commodity.localeCompare(b.commodity),
+  const allCropsSorted = cropsData?.sort((a, b) =>
+    a.commodity && b.commodity ? a.commodity.localeCompare(b.commodity) : 0,
   );
 
   const sortOptions = [

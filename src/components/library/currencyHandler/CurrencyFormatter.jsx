@@ -21,7 +21,6 @@ const CurrencyFormatter = ({ value }) => {
         setConvertedValue(convertedAmount);
       } catch (error) {
         console.log("Error converting currency:", error);
-        // Handle error or set a default conversion
       }
     };
   }, [value, selectedCurrency, exchangeRates]);

@@ -11,15 +11,16 @@ const CropsProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      const cachedCropData = localStorageData("cropsData");
       try {
-        const cachedCropData = localStorageData("cropsData");
-        const currentDate = new Date().toLocaleDateString();
+        const currentDate = new Date().toISOString().slice(0, 10);
+
         const cachedDate = cachedCropData
-          ? new Date(cachedCropData.date).toLocaleDateString()
+          ? new Date(cachedCropData[0].dates[0]).toISOString().slice(0, 10)
           : null;
 
         if (cachedCropData && currentDate === cachedDate) {
-          setCropsData(cachedCropData.data);
+          setCropsData(cachedCropData);
           setLoading(false);
         } else {
           const response = await axios.get(
@@ -31,12 +32,17 @@ const CropsProvider = ({ children }) => {
             },
           );
           setCropsData(response.data);
-          // console.log("cropsData", response.data);
           localStorageData("cropsData", response.data);
           setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
+        if (!navigator.onLine && cachedCropData) {
+          setCropsData(cachedCropData);
+          setLoading(false);
+        } else {
+          console.log("No local storage data");
+        }
       }
     };
 
