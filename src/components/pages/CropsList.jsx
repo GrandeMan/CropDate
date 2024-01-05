@@ -149,8 +149,8 @@ const CropsList = function () {
                           <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                         </button>
                       </div>
-                      <div className="flex flex-cols gap-2 justify-center h-3/6">
-                        <div className="w-1/2">
+                      <div className="flex flex-col gap-2">
+                        <div>
                           <BarChart
                             data={{
                               labels: selectedCrop?.dates.map((date) =>
@@ -188,7 +188,7 @@ const CropsList = function () {
                             }}
                           />
                         </div>
-                        <div className="w-1/2">
+                        <div>
                           <BarChart
                             data={{
                               labels: selectedCrop?.dates.map((date) =>
@@ -227,7 +227,7 @@ const CropsList = function () {
                           />
                         </div>
                       </div>
-                      <div className="grid grid-rows-5 w-full h-2/6">
+                      <div className="grid grid-rows-5 w-full h-48">
                         <div className="grid grid-cols-2 text-center">
                           <span className="bg-green-200 font-bold px-2 py-4 min-h-max min-w-max">
                             Category

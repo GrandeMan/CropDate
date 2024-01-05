@@ -34,7 +34,7 @@ export const defaultOptions = {
         color: "#000",
         font: {
           family: "Inter",
-          size: 16,
+          size: 14,
           weight: "bold",
           lineHeight: 1,
         },

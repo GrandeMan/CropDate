@@ -144,8 +144,8 @@ const MyCrops = () => {
                           <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                         </button>
                       </div>
-                      <div className="flex flex-cols gap-2 justify-center h-3/6">
-                        <div className="w-1/2">
+                      <div className="flex flex-col gap-2">
+                        <div>
                           <BarChart
                             data={{
                               labels: selectedCrop?.dates.map((date) =>
@@ -183,7 +183,7 @@ const MyCrops = () => {
                             }}
                           />
                         </div>
-                        <div className="w-1/2">
+                        <div>
                           <BarChart
                             data={{
                               labels: selectedCrop?.dates.map((date) =>
