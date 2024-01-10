@@ -1,6 +1,6 @@
 # CropDate
 
-<div align='center'><img src='https://github.com/GrandeMan/CropDate/assets/114616062/1cdc09fb-19dd-49b6-9deb-5fd733d500d4' height='500' /></div>
+<div align='center'><img src='https://github.com/GrandeMan/CropDate/assets/114616062/1cdc09fb-19dd-49b6-9deb-5fd733d500d4' width='768' /></div>
 
 
 CropDate is a concept for an agriculture app that provides updates on wholesale crop prices in Trinidad and Tobago. Users can view the prices and volumes of the available crops, they can also favourite crops to view them specifically. The app was inspired by the work of the AGRINETT team.
@@ -51,7 +51,7 @@ Initially, this was going to be a frontend project. I set out to create a web ap
 
 `I'm the Problem`: Bugs are most likely caused by user error, even if the code looks to be correct and I don't understand why. The problem is most likely tucked away in another file, or the intended outcome and the actual outcome don't line up, which boils down to a lack of understanding.
 
-`Add 10%`: Whenever I think I'm a certain percentage completed with a project, I should add an extra 10% because there always seems to be something unexpected that comes up.
+`Minus 10%`: Whenever I think I'm a certain percentage completed with a project, I should subtract an extra 10% because there always seems to be something unexpected that comes up.
 
 <hr/>
 
